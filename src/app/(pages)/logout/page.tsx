@@ -29,10 +29,10 @@ export default async function Logout() {
 }
 
 export const metadata: Metadata = {
-  title: 'Logout',
-  description: 'You have been logged out.',
+  title: 'Cerrar sesión',
+  description: 'Has cerrado sesión exitosamente!',
   openGraph: mergeOpenGraph({
-    title: 'Logout',
+    title: 'Cerrar sesión',
     url: '/logout',
   }),
 }

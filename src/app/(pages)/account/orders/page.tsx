@@ -15,7 +15,7 @@ import classes from './index.module.scss'
 export default async function Orders() {
   const { token } = await getMeUser({
     nullUserRedirect: `/login?error=${encodeURIComponent(
-      'You must be logged in to view your orders.',
+      'Por favor, inicia sesión para acceder a tus pedidos.',
     )}&redirect=${encodeURIComponent('/orders')}`,
   })
 
@@ -43,9 +43,9 @@ export default async function Orders() {
 
   return (
     <div>
-      <h5>My Orders</h5>
+      <h5>Mis Pedidos</h5>
       {(!orders || !Array.isArray(orders) || orders?.length === 0) && (
-        <p className={classes.noOrders}>You have no orders.</p>
+        <p className={classes.noOrders}>No tienes ningún pedido</p>
       )}
       <RenderParams />
       {orders && orders.length > 0 && (
@@ -54,7 +54,7 @@ export default async function Orders() {
             <li key={order.id} className={classes.order}>
               <Link className={classes.item} href={`/account/orders/${order.id}`}>
                 <div className={classes.itemContent}>
-                  <h6 className={classes.itemTitle}>{`Order ${order.id}`}</h6>
+                  <h6 className={classes.itemTitle}>{`Pedido ${order.id}`}</h6>
                   <div className={classes.itemMeta}>
                     <p>
                       {'Total: '}
@@ -63,14 +63,14 @@ export default async function Orders() {
                         currency: 'usd',
                       }).format(order.total / 100)}
                     </p>
-                    <p className={classes.orderDate}>{`Ordered On: ${formatDateTime(
+                    <p className={classes.orderDate}>{`Pedido con fecha: ${formatDateTime(
                       order.createdAt,
                     )}`}</p>
                   </div>
                 </div>
                 <Button
                   appearance="default"
-                  label="View Order"
+                  label="Ver Pedido"
                   className={classes.button}
                   el="link"
                   href={`/account/orders/${order.id}`}
@@ -85,8 +85,8 @@ export default async function Orders() {
 }
 
 export const metadata: Metadata = {
-  title: 'Orders',
-  description: 'Your orders.',
+  title: 'Pedidos',
+  description: 'Tus perdidos.',
   openGraph: mergeOpenGraph({
     title: 'Orders',
     url: '/orders',

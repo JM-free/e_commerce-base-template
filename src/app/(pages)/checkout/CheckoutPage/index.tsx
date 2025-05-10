@@ -80,9 +80,9 @@ export const CheckoutPage: React.FC<{
     <Fragment>
       {cartIsEmpty && (
         <div>
-          {'Your '}
+          {'Tu '}
           <Link href="/cart">cart</Link>
-          {' is empty.'}
+          {' está vacío.'}
           {typeof productsPage === 'object' && productsPage?.slug && (
             <Fragment>
               {' '}
@@ -144,7 +144,7 @@ export const CheckoutPage: React.FC<{
       {!clientSecret && error && (
         <div className={classes.error}>
           <p>{`Error: ${error}`}</p>
-          <Button label="Back to cart" href="/cart" appearance="secondary" />
+          <Button label="Ir al carrito" href="/cart" appearance="secondary" />
         </div>
       )}
       {clientSecret && (

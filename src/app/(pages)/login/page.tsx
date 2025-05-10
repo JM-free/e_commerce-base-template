@@ -13,33 +13,31 @@ import classes from './index.module.scss'
 
 export default async function Login() {
   await getMeUser({
-    validUserRedirect: `/account?warning=${encodeURIComponent('You are already logged in.')}`,
+    validUserRedirect: `/account?warning=${encodeURIComponent('Ya has iniciado sesión.')}`,
   })
 
   return (
     <section className={classes.login}>
-      <div className={classes.heroImg}>
+      <div className={classes.heroImg}></div>
+
+      <div className={classes.formWrapper}>
         <Link href="/">
           <Image
-            src="/logo-black.svg"
+            src="/logo-white.svg"
             alt="logo"
             width={250}
             height={23}
             className={classes.logo}
           />
         </Link>
-      </div>
-
-      <div className={classes.formWrapper}>
         <div className={classes.formContainer}>
           <RenderParams className={classes.params} />
-
           <div className={classes.formTitle}>
-            <h3>Welcome</h3>
-            <Image src="/assets/icons/hand.png" alt="hand" width={30} height={30} />
+            <h3>Hola</h3>
+            <Image src="/assets/icons/hand.svg" alt="hand" width={30} height={30} />
           </div>
 
-          <p>Please login here</p>
+          <p>Por favor, introduce tus datos</p>
 
           <LoginForm />
         </div>
@@ -49,10 +47,10 @@ export default async function Login() {
 }
 
 export const metadata: Metadata = {
-  title: 'Login',
-  description: 'Login or create an account to get started.',
+  title: 'Iniciar Sesión',
+  description: 'Iniciar sesión o crear una nueva cuenta.',
   openGraph: mergeOpenGraph({
-    title: 'Login',
+    title: 'Iniciar Sesión',
     url: '/login',
   }),
 }

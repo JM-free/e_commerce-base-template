@@ -74,7 +74,7 @@ const AccountForm: React.FC = () => {
     if (user === null) {
       router.push(
         `/login?error=${encodeURIComponent(
-          'You must be logged in to view this page.',
+          'Por favor, inicia sesión para ver esta página.',
         )}&redirect=${encodeURIComponent('/account')}`,
       )
     }
@@ -97,43 +97,43 @@ const AccountForm: React.FC = () => {
         <Fragment>
           <Input
             name="email"
-            label="Email Address"
+            label="Correo electrónico"
             required
             register={register}
             error={errors.email}
             type="email"
           />
-          <Input name="name" label="Name" register={register} error={errors.name} />
+          <Input name="name" label="Nombre" register={register} error={errors.name} />
 
           <p>
-            {'Change your account details below, or '}
+            {'Edita los datos de tu cuenta a continuación, o '}
             <button
               type="button"
               className={classes.changePassword}
               onClick={() => setChangePassword(!changePassword)}
             >
-              click here
+              click aquí
             </button>
-            {' to change your password.'}
+            {' cambiar contraseña.'}
           </p>
         </Fragment>
       ) : (
         <Fragment>
           <p>
-            {'Change your password below, or '}
+            {'Cambia tu contraseña a continuación, o '}
             <button
               type="button"
               className={classes.changePassword}
               onClick={() => setChangePassword(!changePassword)}
             >
-              cancel
+              Cancelar
             </button>
             .
           </p>
           <Input
             name="password"
             type="password"
-            label="Password"
+            label="Contraseña"
             required
             register={register}
             error={errors.password}
@@ -141,17 +141,17 @@ const AccountForm: React.FC = () => {
           <Input
             name="passwordConfirm"
             type="password"
-            label="Confirm Password"
+            label="Confirmar contraseña"
             required
             register={register}
-            validate={value => value === password.current || 'The passwords do not match'}
+            validate={value => value === password.current || 'Las contraseñas no coinciden'}
             error={errors.passwordConfirm}
           />
         </Fragment>
       )}
       <Button
         type="submit"
-        label={isLoading ? 'Processing' : changePassword ? 'Change Password' : 'Update Account'}
+        label={isLoading ? 'Cargando' : changePassword ? 'Cambiar Contraseña' : 'Actualizar Cuenta'}
         disabled={isLoading}
         appearance="primary"
         className={classes.submit}

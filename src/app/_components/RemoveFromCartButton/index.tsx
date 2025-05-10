@@ -17,7 +17,7 @@ export const RemoveFromCartButton: React.FC<{
   const productIsInCart = isProductInCart(product)
 
   if (!productIsInCart) {
-    return <div>Item is not in the cart</div>
+    return <div>El producto no está en el carrito</div>
   }
 
   return (

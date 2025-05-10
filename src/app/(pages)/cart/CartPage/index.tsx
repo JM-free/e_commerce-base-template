@@ -102,7 +102,7 @@ export const CartPage: React.FC<{
                 </div>
 
                 <div className={classes.row}>
-                  <p className={classes.cartTotal}>Gasstos de envío</p>
+                  <p className={classes.cartTotal}>Gastos de envío</p>
                   <p className={classes.cartTotal}>$0</p>
                 </div>
 
