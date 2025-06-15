@@ -6,8 +6,6 @@ import { PAGE } from '../_graphql/pages'
 import { PRODUCT } from '../_graphql/products'
 import { GRAPHQL_API_URL } from './shared'
 import { payloadToken } from './token'
-import { query } from 'express'
-import { CATEGORIES } from '../_graphql/categories'
 
 const queryMap = {
   pages: {
