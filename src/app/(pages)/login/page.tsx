@@ -21,15 +21,6 @@ export default async function Login() {
       <div className={classes.heroImg}></div>
 
       <div className={classes.formWrapper}>
-        <Link href="/">
-          <Image
-            src="/logo-white.svg"
-            alt="logo"
-            width={250}
-            height={23}
-            className={classes.logo}
-          />
-        </Link>
         <div className={classes.formContainer}>
           <RenderParams className={classes.params} />
           <div className={classes.formTitle}>

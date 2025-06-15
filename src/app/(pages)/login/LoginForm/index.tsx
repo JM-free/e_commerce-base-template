@@ -72,9 +72,11 @@ const LoginForm: React.FC = () => {
         className={classes.submit}
       />
       <div className={classes.links}>
-        <Link href={`/create-account${allParams}`}>Crea una cuenta</Link>
+        <Link href={`/create-account${allParams}`}>📋 Crear cuenta</Link>
         <br />
-        <Link href={`/recover-password${allParams}`}>Recupera tu contraseña</Link>
+        <Link href={`/${allParams}`}>🏠 Volver a Inicio</Link>
+        <br />
+        <Link href={`/recover-password${allParams}`}>🔐 Recuperar contraseña</Link>
       </div>
     </form>
   )
