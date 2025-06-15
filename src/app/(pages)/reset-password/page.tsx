@@ -10,18 +10,18 @@ import classes from './index.module.scss'
 export default async function ResetPassword() {
   return (
     <Gutter className={classes.resetPassword}>
-      <h1>Reset Password</h1>
-      <p>Please enter a new password below.</p>
+      <h1>Nueva Contraseña</h1>
+      <p>Introduce una nueva contraseña.</p>
       <ResetPasswordForm />
     </Gutter>
   )
 }
 
 export const metadata: Metadata = {
-  title: 'Reset Password',
-  description: 'Enter a new password.',
+  title: 'Nueva Contraseña',
+  description: 'Introduce una nueva contraseña para tu cuenta.',
   openGraph: mergeOpenGraph({
-    title: 'Reset Password',
+    title: 'Nueva Contraseña',
     url: '/reset-password',
   }),
 }
