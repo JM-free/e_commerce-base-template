@@ -117,9 +117,10 @@ const CreateAccountForm: React.FC = () => {
         appearance="primary"
         className={classes.submit}
       />
-      <div>
-        {'¿Ya tienes una cuenta? '}
-        <Link href={`/login${allParams}`}>Iniciar Sesión</Link>
+      <div className={classes.links}>
+        <Link href={`/login${allParams}`}> 🔑 Iniciar Sesión.</Link>
+        <br />
+        <Link href={`/${allParams}`}>🏠 Volver a Inicio</Link>
       </div>
     </form>
   )

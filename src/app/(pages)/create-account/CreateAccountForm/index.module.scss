@@ -17,3 +17,10 @@
 .message {
   margin-bottom: var(--base);
 }
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
