@@ -30,7 +30,7 @@ export const AddToCartButton: React.FC<{
     <Button
       href={isInCart ? '/cart' : undefined}
       type={!isInCart ? 'button' : undefined}
-      label={isInCart ? `✓ View in cart` : `Add to cart`}
+      label={isInCart ? `✓ Ver en carrito` : `Agregar al carrito`}
       el={isInCart ? 'link' : undefined}
       appearance={appearance}
       className={[
