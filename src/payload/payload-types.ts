@@ -20,6 +20,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    digitalfiles: Digitalfile;
     redirects: Redirect;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -379,6 +380,7 @@ export interface Product {
   relatedProducts?: string[] | Product[];
   slug?: string;
   skipSync?: boolean;
+  digitalFile?: string | Digitalfile;
   meta?: {
     title?: string;
     description?: string;
@@ -387,6 +389,18 @@ export interface Product {
   updatedAt: string;
   createdAt: string;
   _status?: 'draft' | 'published';
+}
+export interface Digitalfile {
+  id: string;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string;
+  filename?: string;
+  mimeType?: string;
+  filesize?: number;
+  width?: number;
+  height?: number;
 }
 export interface Order {
   id: string;

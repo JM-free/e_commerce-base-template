@@ -152,6 +152,23 @@ const Products: CollectionConfig = {
         hidden: true,
       },
     },
+    {
+      name: 'digitalFile',
+      label: 'Digital File (Visible after purchase)',
+      type: 'relationship',
+      relationTo: 'digitalfiles', // now points to the new private collection
+      required: false,
+      admin: {
+        position: 'sidebar',
+        description:
+          'Upload a digital file for this product. Only visible to users after purchase.',
+      },
+      access: {
+        read: admins, // Only admins can see/edit in admin UI
+        create: admins,
+        update: admins,
+      },
+    },
   ],
 }
 
