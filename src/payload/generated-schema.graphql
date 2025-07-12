@@ -23,6 +23,9 @@ type Query {
   docAccessUser(id: String!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
+  Digitalfile(id: String!, draft: Boolean): Digitalfile
+  Digitalfiles(draft: Boolean, where: Digitalfile_where, limit: Int, page: Int, sort: String): Digitalfiles
+  docAccessDigitalfile(id: String!): digitalfilesDocAccess
   Redirect(id: String!, draft: Boolean): Redirect
   Redirects(draft: Boolean, where: Redirect_where, limit: Int, page: Int, sort: String): Redirects
   docAccessRedirect(id: String!): redirectsDocAccess
@@ -1255,6 +1258,7 @@ type Product {
   relatedProducts: [Product!]
   slug: String
   skipSync: Boolean
+  digitalFile: Digitalfile
   meta: Product_Meta
   updatedAt: DateTime
   createdAt: DateTime
@@ -1264,6 +1268,19 @@ type Product {
 union Product_Layout = Cta | Content | MediaBlock | Archive
 
 union Product_Paywall = Cta | Content | MediaBlock | Archive
+
+type Digitalfile {
+  id: String
+  alt: String!
+  updatedAt: DateTime
+  createdAt: DateTime
+  url: String
+  filename: String
+  mimeType: String
+  filesize: Float
+  width: Float
+  height: Float
+}
 
 type Product_Meta {
   title: String
@@ -3553,6 +3570,7 @@ input Product_where {
   relatedProducts: Product_relatedProducts_operator
   slug: Product_slug_operator
   skipSync: Product_skipSync_operator
+  digitalFile: Product_digitalFile_operator
   meta__title: Product_meta__title_operator
   meta__description: Product_meta__description_operator
   meta__image: Product_meta__image_operator
@@ -3645,6 +3663,15 @@ input Product_skipSync_operator {
   exists: Boolean
 }
 
+input Product_digitalFile_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
 input Product_meta__title_operator {
   equals: String
   not_equals: String
@@ -3727,6 +3754,7 @@ input Product_where_and {
   relatedProducts: Product_relatedProducts_operator
   slug: Product_slug_operator
   skipSync: Product_skipSync_operator
+  digitalFile: Product_digitalFile_operator
   meta__title: Product_meta__title_operator
   meta__description: Product_meta__description_operator
   meta__image: Product_meta__image_operator
@@ -3746,6 +3774,7 @@ input Product_where_or {
   relatedProducts: Product_relatedProducts_operator
   slug: Product_slug_operator
   skipSync: Product_skipSync_operator
+  digitalFile: Product_digitalFile_operator
   meta__title: Product_meta__title_operator
   meta__description: Product_meta__description_operator
   meta__image: Product_meta__image_operator
@@ -3776,6 +3805,7 @@ type ProductsDocAccessFields {
   relatedProducts: ProductsDocAccessFields_relatedProducts
   slug: ProductsDocAccessFields_slug
   skipSync: ProductsDocAccessFields_skipSync
+  digitalFile: ProductsDocAccessFields_digitalFile
   meta: ProductsDocAccessFields_meta
   updatedAt: ProductsDocAccessFields_updatedAt
   createdAt: ProductsDocAccessFields_createdAt
@@ -4032,6 +4062,29 @@ type ProductsDocAccessFields_skipSync_Update {
 }
 
 type ProductsDocAccessFields_skipSync_Delete {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_digitalFile {
+  create: ProductsDocAccessFields_digitalFile_Create
+  read: ProductsDocAccessFields_digitalFile_Read
+  update: ProductsDocAccessFields_digitalFile_Update
+  delete: ProductsDocAccessFields_digitalFile_Delete
+}
+
+type ProductsDocAccessFields_digitalFile_Create {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_digitalFile_Read {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_digitalFile_Update {
+  permission: Boolean!
+}
+
+type ProductsDocAccessFields_digitalFile_Delete {
   permission: Boolean!
 }
 
@@ -4297,6 +4350,7 @@ type ProductVersion_Version {
   relatedProducts: [Product!]
   slug: String
   skipSync: Boolean
+  digitalFile: Digitalfile
   meta: ProductVersion_Version_Meta
   updatedAt: DateTime
   createdAt: DateTime
@@ -4501,6 +4555,7 @@ input versionsProduct_where {
   version__relatedProducts: versionsProduct_version__relatedProducts_operator
   version__slug: versionsProduct_version__slug_operator
   version__skipSync: versionsProduct_version__skipSync_operator
+  version__digitalFile: versionsProduct_version__digitalFile_operator
   version__meta__title: versionsProduct_version__meta__title_operator
   version__meta__description: versionsProduct_version__meta__description_operator
   version__meta__image: versionsProduct_version__meta__image_operator
@@ -4602,6 +4657,15 @@ input versionsProduct_version__slug_operator {
 input versionsProduct_version__skipSync_operator {
   equals: Boolean
   not_equals: Boolean
+  exists: Boolean
+}
+
+input versionsProduct_version__digitalFile_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
   exists: Boolean
 }
 
@@ -4716,6 +4780,7 @@ input versionsProduct_where_and {
   version__relatedProducts: versionsProduct_version__relatedProducts_operator
   version__slug: versionsProduct_version__slug_operator
   version__skipSync: versionsProduct_version__skipSync_operator
+  version__digitalFile: versionsProduct_version__digitalFile_operator
   version__meta__title: versionsProduct_version__meta__title_operator
   version__meta__description: versionsProduct_version__meta__description_operator
   version__meta__image: versionsProduct_version__meta__image_operator
@@ -4739,6 +4804,7 @@ input versionsProduct_where_or {
   version__relatedProducts: versionsProduct_version__relatedProducts_operator
   version__slug: versionsProduct_version__slug_operator
   version__skipSync: versionsProduct_version__skipSync_operator
+  version__digitalFile: versionsProduct_version__digitalFile_operator
   version__meta__title: versionsProduct_version__meta__title_operator
   version__meta__description: versionsProduct_version__meta__description_operator
   version__meta__image: versionsProduct_version__meta__image_operator
@@ -6685,6 +6751,414 @@ type usersMe {
   user: User
 }
 
+type Digitalfiles {
+  docs: [Digitalfile]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input Digitalfile_where {
+  alt: Digitalfile_alt_operator
+  updatedAt: Digitalfile_updatedAt_operator
+  createdAt: Digitalfile_createdAt_operator
+  url: Digitalfile_url_operator
+  filename: Digitalfile_filename_operator
+  mimeType: Digitalfile_mimeType_operator
+  filesize: Digitalfile_filesize_operator
+  width: Digitalfile_width_operator
+  height: Digitalfile_height_operator
+  id: Digitalfile_id_operator
+  AND: [Digitalfile_where_and]
+  OR: [Digitalfile_where_or]
+}
+
+input Digitalfile_alt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Digitalfile_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Digitalfile_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Digitalfile_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Digitalfile_filename_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Digitalfile_mimeType_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Digitalfile_filesize_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Digitalfile_width_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Digitalfile_height_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Digitalfile_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Digitalfile_where_and {
+  alt: Digitalfile_alt_operator
+  updatedAt: Digitalfile_updatedAt_operator
+  createdAt: Digitalfile_createdAt_operator
+  url: Digitalfile_url_operator
+  filename: Digitalfile_filename_operator
+  mimeType: Digitalfile_mimeType_operator
+  filesize: Digitalfile_filesize_operator
+  width: Digitalfile_width_operator
+  height: Digitalfile_height_operator
+  id: Digitalfile_id_operator
+}
+
+input Digitalfile_where_or {
+  alt: Digitalfile_alt_operator
+  updatedAt: Digitalfile_updatedAt_operator
+  createdAt: Digitalfile_createdAt_operator
+  url: Digitalfile_url_operator
+  filename: Digitalfile_filename_operator
+  mimeType: Digitalfile_mimeType_operator
+  filesize: Digitalfile_filesize_operator
+  width: Digitalfile_width_operator
+  height: Digitalfile_height_operator
+  id: Digitalfile_id_operator
+}
+
+type digitalfilesDocAccess {
+  fields: DigitalfilesDocAccessFields
+  create: DigitalfilesCreateDocAccess
+  read: DigitalfilesReadDocAccess
+  update: DigitalfilesUpdateDocAccess
+  delete: DigitalfilesDeleteDocAccess
+}
+
+type DigitalfilesDocAccessFields {
+  alt: DigitalfilesDocAccessFields_alt
+  updatedAt: DigitalfilesDocAccessFields_updatedAt
+  createdAt: DigitalfilesDocAccessFields_createdAt
+  url: DigitalfilesDocAccessFields_url
+  filename: DigitalfilesDocAccessFields_filename
+  mimeType: DigitalfilesDocAccessFields_mimeType
+  filesize: DigitalfilesDocAccessFields_filesize
+  width: DigitalfilesDocAccessFields_width
+  height: DigitalfilesDocAccessFields_height
+}
+
+type DigitalfilesDocAccessFields_alt {
+  create: DigitalfilesDocAccessFields_alt_Create
+  read: DigitalfilesDocAccessFields_alt_Read
+  update: DigitalfilesDocAccessFields_alt_Update
+  delete: DigitalfilesDocAccessFields_alt_Delete
+}
+
+type DigitalfilesDocAccessFields_alt_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_alt_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_alt_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_alt_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_updatedAt {
+  create: DigitalfilesDocAccessFields_updatedAt_Create
+  read: DigitalfilesDocAccessFields_updatedAt_Read
+  update: DigitalfilesDocAccessFields_updatedAt_Update
+  delete: DigitalfilesDocAccessFields_updatedAt_Delete
+}
+
+type DigitalfilesDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_createdAt {
+  create: DigitalfilesDocAccessFields_createdAt_Create
+  read: DigitalfilesDocAccessFields_createdAt_Read
+  update: DigitalfilesDocAccessFields_createdAt_Update
+  delete: DigitalfilesDocAccessFields_createdAt_Delete
+}
+
+type DigitalfilesDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_url {
+  create: DigitalfilesDocAccessFields_url_Create
+  read: DigitalfilesDocAccessFields_url_Read
+  update: DigitalfilesDocAccessFields_url_Update
+  delete: DigitalfilesDocAccessFields_url_Delete
+}
+
+type DigitalfilesDocAccessFields_url_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_url_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_url_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_url_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_filename {
+  create: DigitalfilesDocAccessFields_filename_Create
+  read: DigitalfilesDocAccessFields_filename_Read
+  update: DigitalfilesDocAccessFields_filename_Update
+  delete: DigitalfilesDocAccessFields_filename_Delete
+}
+
+type DigitalfilesDocAccessFields_filename_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_filename_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_filename_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_filename_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_mimeType {
+  create: DigitalfilesDocAccessFields_mimeType_Create
+  read: DigitalfilesDocAccessFields_mimeType_Read
+  update: DigitalfilesDocAccessFields_mimeType_Update
+  delete: DigitalfilesDocAccessFields_mimeType_Delete
+}
+
+type DigitalfilesDocAccessFields_mimeType_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_mimeType_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_mimeType_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_mimeType_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_filesize {
+  create: DigitalfilesDocAccessFields_filesize_Create
+  read: DigitalfilesDocAccessFields_filesize_Read
+  update: DigitalfilesDocAccessFields_filesize_Update
+  delete: DigitalfilesDocAccessFields_filesize_Delete
+}
+
+type DigitalfilesDocAccessFields_filesize_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_filesize_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_filesize_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_filesize_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_width {
+  create: DigitalfilesDocAccessFields_width_Create
+  read: DigitalfilesDocAccessFields_width_Read
+  update: DigitalfilesDocAccessFields_width_Update
+  delete: DigitalfilesDocAccessFields_width_Delete
+}
+
+type DigitalfilesDocAccessFields_width_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_width_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_width_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_width_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_height {
+  create: DigitalfilesDocAccessFields_height_Create
+  read: DigitalfilesDocAccessFields_height_Read
+  update: DigitalfilesDocAccessFields_height_Update
+  delete: DigitalfilesDocAccessFields_height_Delete
+}
+
+type DigitalfilesDocAccessFields_height_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_height_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_height_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesDocAccessFields_height_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DigitalfilesReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DigitalfilesUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DigitalfilesDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type Redirect {
   id: String
   from: String!
@@ -8418,6 +8892,7 @@ type Access {
   media: mediaAccess
   categories: categoriesAccess
   users: usersAccess
+  digitalfiles: digitalfilesAccess
   redirects: redirectsAccess
   payload_preferences: payload_preferencesAccess
   settings: settingsAccess
@@ -9147,6 +9622,7 @@ type ProductsFields {
   relatedProducts: ProductsFields_relatedProducts
   slug: ProductsFields_slug
   skipSync: ProductsFields_skipSync
+  digitalFile: ProductsFields_digitalFile
   meta: ProductsFields_meta
   updatedAt: ProductsFields_updatedAt
   createdAt: ProductsFields_createdAt
@@ -9403,6 +9879,29 @@ type ProductsFields_skipSync_Update {
 }
 
 type ProductsFields_skipSync_Delete {
+  permission: Boolean!
+}
+
+type ProductsFields_digitalFile {
+  create: ProductsFields_digitalFile_Create
+  read: ProductsFields_digitalFile_Read
+  update: ProductsFields_digitalFile_Update
+  delete: ProductsFields_digitalFile_Delete
+}
+
+type ProductsFields_digitalFile_Create {
+  permission: Boolean!
+}
+
+type ProductsFields_digitalFile_Read {
+  permission: Boolean!
+}
+
+type ProductsFields_digitalFile_Update {
+  permission: Boolean!
+}
+
+type ProductsFields_digitalFile_Delete {
   permission: Boolean!
 }
 
@@ -10849,6 +11348,253 @@ type UsersUnlockAccess {
   where: JSONObject
 }
 
+type digitalfilesAccess {
+  fields: DigitalfilesFields
+  create: DigitalfilesCreateAccess
+  read: DigitalfilesReadAccess
+  update: DigitalfilesUpdateAccess
+  delete: DigitalfilesDeleteAccess
+}
+
+type DigitalfilesFields {
+  alt: DigitalfilesFields_alt
+  updatedAt: DigitalfilesFields_updatedAt
+  createdAt: DigitalfilesFields_createdAt
+  url: DigitalfilesFields_url
+  filename: DigitalfilesFields_filename
+  mimeType: DigitalfilesFields_mimeType
+  filesize: DigitalfilesFields_filesize
+  width: DigitalfilesFields_width
+  height: DigitalfilesFields_height
+}
+
+type DigitalfilesFields_alt {
+  create: DigitalfilesFields_alt_Create
+  read: DigitalfilesFields_alt_Read
+  update: DigitalfilesFields_alt_Update
+  delete: DigitalfilesFields_alt_Delete
+}
+
+type DigitalfilesFields_alt_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_alt_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_alt_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_alt_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_updatedAt {
+  create: DigitalfilesFields_updatedAt_Create
+  read: DigitalfilesFields_updatedAt_Read
+  update: DigitalfilesFields_updatedAt_Update
+  delete: DigitalfilesFields_updatedAt_Delete
+}
+
+type DigitalfilesFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_createdAt {
+  create: DigitalfilesFields_createdAt_Create
+  read: DigitalfilesFields_createdAt_Read
+  update: DigitalfilesFields_createdAt_Update
+  delete: DigitalfilesFields_createdAt_Delete
+}
+
+type DigitalfilesFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_url {
+  create: DigitalfilesFields_url_Create
+  read: DigitalfilesFields_url_Read
+  update: DigitalfilesFields_url_Update
+  delete: DigitalfilesFields_url_Delete
+}
+
+type DigitalfilesFields_url_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_url_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_url_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_url_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_filename {
+  create: DigitalfilesFields_filename_Create
+  read: DigitalfilesFields_filename_Read
+  update: DigitalfilesFields_filename_Update
+  delete: DigitalfilesFields_filename_Delete
+}
+
+type DigitalfilesFields_filename_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_filename_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_filename_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_filename_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_mimeType {
+  create: DigitalfilesFields_mimeType_Create
+  read: DigitalfilesFields_mimeType_Read
+  update: DigitalfilesFields_mimeType_Update
+  delete: DigitalfilesFields_mimeType_Delete
+}
+
+type DigitalfilesFields_mimeType_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_mimeType_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_mimeType_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_mimeType_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_filesize {
+  create: DigitalfilesFields_filesize_Create
+  read: DigitalfilesFields_filesize_Read
+  update: DigitalfilesFields_filesize_Update
+  delete: DigitalfilesFields_filesize_Delete
+}
+
+type DigitalfilesFields_filesize_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_filesize_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_filesize_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_filesize_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_width {
+  create: DigitalfilesFields_width_Create
+  read: DigitalfilesFields_width_Read
+  update: DigitalfilesFields_width_Update
+  delete: DigitalfilesFields_width_Delete
+}
+
+type DigitalfilesFields_width_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_width_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_width_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_width_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_height {
+  create: DigitalfilesFields_height_Create
+  read: DigitalfilesFields_height_Read
+  update: DigitalfilesFields_height_Update
+  delete: DigitalfilesFields_height_Delete
+}
+
+type DigitalfilesFields_height_Create {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_height_Read {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_height_Update {
+  permission: Boolean!
+}
+
+type DigitalfilesFields_height_Delete {
+  permission: Boolean!
+}
+
+type DigitalfilesCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DigitalfilesReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DigitalfilesUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DigitalfilesDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type redirectsAccess {
   fields: RedirectsFields
   create: RedirectsCreateAccess
@@ -11928,6 +12674,9 @@ type Mutation {
   forgotPasswordUser(disableEmail: Boolean, email: String!, expiration: Int): Boolean!
   resetPasswordUser(password: String, token: String): usersResetPassword
   verifyEmailUser(token: String): Boolean
+  createDigitalfile(data: mutationDigitalfileInput!, draft: Boolean): Digitalfile
+  updateDigitalfile(id: String!, autosave: Boolean, data: mutationDigitalfileUpdateInput!, draft: Boolean): Digitalfile
+  deleteDigitalfile(id: String!): Digitalfile
   createRedirect(data: mutationRedirectInput!, draft: Boolean): Redirect
   updateRedirect(id: String!, autosave: Boolean, data: mutationRedirectUpdateInput!, draft: Boolean): Redirect
   deleteRedirect(id: String!): Redirect
@@ -12087,6 +12836,7 @@ input mutationProductInput {
   relatedProducts: [String]
   slug: String
   skipSync: Boolean
+  digitalFile: String
   meta: mutationProduct_MetaInput
   updatedAt: String
   createdAt: String
@@ -12116,6 +12866,7 @@ input mutationProductUpdateInput {
   relatedProducts: [String]
   slug: String
   skipSync: Boolean
+  digitalFile: String
   meta: mutationProductUpdate_MetaInput
   updatedAt: String
   createdAt: String
@@ -12311,6 +13062,30 @@ type usersLoginResult {
 type usersResetPassword {
   token: String
   user: User
+}
+
+input mutationDigitalfileInput {
+  alt: String!
+  updatedAt: String
+  createdAt: String
+  url: String
+  filename: String
+  mimeType: String
+  filesize: Float
+  width: Float
+  height: Float
+}
+
+input mutationDigitalfileUpdateInput {
+  alt: String
+  updatedAt: String
+  createdAt: String
+  url: String
+  filename: String
+  mimeType: String
+  filesize: Float
+  width: Float
+  height: Float
 }
 
 input mutationRedirectInput {

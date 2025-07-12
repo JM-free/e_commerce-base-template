@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 
+import { Button } from '../../../_components/Button'
 import { Media } from '../../../_components/Media'
 import { Price } from '../../../_components/Price'
 import { formatDateTime } from '../../../_utilities/formatDateTime'
@@ -27,23 +28,40 @@ export default async function Purchases() {
                   {typeof purchase === 'string' ? (
                     <p>{purchase} Test</p>
                   ) : (
-                    <Link href={`/products/${purchase.slug}`} className={classes.item}>
-                      <div className={classes.mediaWrapper}>
-                        {!purchase.meta.image && (
-                          <div className={classes.placeholder}>No image</div>
-                        )}
-                        {purchase.meta.image && typeof purchase.meta.image !== 'string' && (
-                          <Media imgClassName={classes.image} resource={purchase.meta.image} />
-                        )}
-                      </div>
-                      <div className={classes.itemDetails}>
-                        <h6>{purchase.title}</h6>
-                        <Price product={purchase} />
-                        <p className={classes.purchasedDate}>{`Comprado con fecha: ${formatDateTime(
-                          purchase.createdAt,
-                        )}`}</p>
-                      </div>
-                    </Link>
+                    <>
+                      <Link href={`/products/${purchase.slug}`} className={classes.item}>
+                        <div className={classes.mediaWrapper}>
+                          {!purchase.meta.image && (
+                            <div className={classes.placeholder}>No image</div>
+                          )}
+                          {purchase.meta.image && typeof purchase.meta.image !== 'string' && (
+                            <Media imgClassName={classes.image} resource={purchase.meta.image} />
+                          )}
+                        </div>
+                        <div className={classes.itemDetails}>
+                          <h6>{purchase.title}</h6>
+                          <Price product={purchase} />
+                          <p
+                            className={classes.purchasedDate}
+                          >{`Comprado con fecha: ${formatDateTime(purchase.createdAt)}`}</p>
+                        </div>
+                      </Link>
+                      {purchase.digitalFile && (
+                        <a
+                          href={`/api/download/${purchase.id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={classes.downloadLink}
+                        >
+                          <Button
+                            type="submit"
+                            label="Descargar archivo digital"
+                            appearance="primary"
+                            className={classes.downloadButton}
+                          />
+                        </a>
+                      )}
+                    </>
                   )}
                 </li>
               )
