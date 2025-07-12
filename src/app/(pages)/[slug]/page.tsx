@@ -65,7 +65,7 @@ export default async function Page({ params: { slug = 'home' } }) {
           <Hero {...hero} />
 
           <Gutter className={classes.home}>
-            <Categories categories={categories} />
+            <Categories categories={categories ?? []} />
           </Gutter>
         </section>
       ) : (
@@ -110,6 +110,11 @@ export async function generateMetadata({ params: { slug = 'home' } }): Promise<M
 
   if (!page && slug === 'home') {
     page = staticHome
+  }
+
+  if (!page) {
+    // Optionally, you can throw or return default metadata here
+    return {} as Metadata
   }
 
   return generateMeta({ doc: page })
