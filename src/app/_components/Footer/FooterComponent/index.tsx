@@ -18,6 +18,7 @@ const FooterComponent = ({ footer }: { footer: Footer }) => {
 
   return (
     <footer className={noHeaderFooterUrls.includes(pathname) ? classes.hide : ''}>
+      {/* 
       <Gutter>
         <ul className={classes.inclusions}>
           {inclusions.map(inclusion => (
@@ -36,6 +37,8 @@ const FooterComponent = ({ footer }: { footer: Footer }) => {
           ))}
         </ul>
       </Gutter>
+      */}
+      <br />
 
       <div className={classes.footer}>
         <Gutter>
