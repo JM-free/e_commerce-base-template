@@ -316,6 +316,32 @@ Before deploying your app, you need to:
 
 The easiest way to deploy your project is to use [Payload Cloud](https://payloadcms.com/new/import), a one-click hosting solution to deploy production-ready instances of your Payload apps directly from your GitHub repo. You can also deploy your app manually, check out the [deployment documentation](https://payloadcms.com/docs/production/deployment) for full details.
 
+
+#### R3 Big Files Storage
+
+1. [Configuring AWS S3 Adapter (Cloudflare R2) in Payload](https://payloadcms.com/posts/guides/how-to-configure-file-storage-in-payload-with-vercel-blob-r2-and-uploadthing)
+
+
 ## Questions
 
 If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+
+# Command
+Install the dependencies:
+
+`npm install --legacy-peer-deps`
+
+Generate **Types** and **Graph** schemas:
+
+`yarn generate:types`
+
+`yarn payload generate:graphQLSchema`
+
+Useful **NPM** command:
+
+`npm run build`
+
+`npm run dev`
+
+`npm run serve`
+
