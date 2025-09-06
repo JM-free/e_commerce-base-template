@@ -1,39 +1,43 @@
 @import '../../../_css/common';
 
 .filters {
-  margin-top: 50px;
+  margin-top: 32px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-
-  @include large-break {
-    flex-direction: row;
-    gap: 40px;
-  }
-  
-  @include small-break {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  @include small-break {
-    margin-top: 16px;
-  }
+  gap: 24px;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  overflow-x: visible;
 }
 
 .categories {
+  width: 100%;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-top: 20px;
+}
 
-  @include large-break {
-    flex-direction: row;
-  }
+.selectWrapper, .categories .react-select__control {
+  width: 100%;
+  min-width: 200px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
 
-  @include small-break {
-    flex-direction: column;
-  }
+.react-select__control {
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: none;
+}
+
+.react-select__menu {
+  width: 100% !important;
+  min-width: 200px;
+  max-width: 100vw;
+  z-index: 10;
 }
 
 .title {

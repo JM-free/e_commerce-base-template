@@ -1,11 +1,9 @@
 'use client'
 
 import React from 'react'
+import Select from 'react-select'
 
 import { Category } from '../../../../payload/payload-types'
-import { Checkbox } from '../../../_components/Checkbox'
-import { HR } from '../../../_components/HR'
-import { RadioButton } from '../../../_components/Radio'
 import { useFilter } from '../../../_providers/Filter'
 
 import classes from './index.module.scss'
@@ -30,36 +28,20 @@ const Filters = ({ categories }: { categories: Category[] }) => {
       <div>
         <h6 className={classes.title}> Categorías</h6>
         <div className={classes.categories}>
-          {categories.map(category => {
-            const isSelected = categoryFilters.includes(category.id)
-
-            return (
-              <Checkbox
-                key={category.id}
-                label={category.title}
-                value={category.id}
-                isSelected={isSelected}
-                onClickHandler={handleCategories}
-              />
-            )
-          })}
-        </div>
-        <HR className={classes.hr} />
-        <h6 className={classes.title}>Ordenar por:</h6>
-        <div className={classes.categories}>
-          <RadioButton
-            label="Recientes"
-            value="-createdAt"
-            isSelected={sort === '-createdAt'}
-            onRadioChange={handleSort}
-            groupName="sort"
-          />
-          <RadioButton
-            label="Antiguos"
-            value="createdAt"
-            isSelected={sort === 'createdAt'}
-            onRadioChange={handleSort}
-            groupName="sort"
+          <Select
+            isMulti
+            options={categories.map(category => ({
+              value: category.id,
+              label: category.title,
+            }))}
+            value={categories
+              .filter(category => categoryFilters.includes(category.id))
+              .map(category => ({ value: category.id, label: category.title }))}
+            onChange={selected => {
+              setCategoryFilters(selected ? selected.map((opt: any) => opt.value) : [])
+            }}
+            classNamePrefix="react-select"
+            placeholder="Escribe para buscar categorías..."
           />
         </div>
       </div>
