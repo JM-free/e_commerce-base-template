@@ -56,6 +56,11 @@ export interface Page {
       id?: string;
     }[];
     media: string | Media;
+    featureImages?: {
+      image: string | Media;
+      caption?: string;
+      id?: string;
+    }[];
   };
   layout: (
     | {

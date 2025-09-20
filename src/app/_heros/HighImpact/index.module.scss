@@ -26,8 +26,6 @@
 
 .links {
   list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   padding-top: var(--base);
   flex-wrap: wrap;
@@ -52,4 +50,12 @@
 
 .content {
   position: relative;
+}
+
+.featureImageGridSpacing {
+  margin-top: calc(var(--base) * 3);
+
+  @include mid-break {
+    margin-top: var(--base);
+  }
 }
