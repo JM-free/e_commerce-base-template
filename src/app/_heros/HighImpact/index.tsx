@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 
 import { Page } from '../../../payload/payload-types'
+import { FeatureImage, FeatureImageGrid } from '../../_components/FeatureImageGrid'
 import { Gutter } from '../../_components/Gutter'
 import { CMSLink } from '../../_components/Link'
 import { Media } from '../../_components/Media'
@@ -8,9 +9,27 @@ import RichText from '../../_components/RichText'
 
 import classes from './index.module.scss'
 
-export const HighImpactHero: React.FC<Page['hero']> = ({ richText, media, links }) => {
+export const HighImpactHero: React.FC<Page['hero'] & { featureImages?: FeatureImage[] }> = ({
+  richText,
+  media,
+  links,
+  featureImages,
+}) => {
   return (
     <Gutter className={classes.hero}>
+      <div className={classes.media}>
+        {typeof media === 'object' && (
+          <Fragment>
+            <Media
+              resource={media}
+              // fill
+              imgClassName={classes.image}
+              priority
+            />
+            {media?.caption && <RichText content={media.caption} className={classes.caption} />}
+          </Fragment>
+        )}
+      </div>
       <div className={classes.content}>
         <RichText content={richText} />
         {Array.isArray(links) && links.length > 0 && (
@@ -25,18 +44,8 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ richText, media, links 
           </ul>
         )}
       </div>
-      <div className={classes.media}>
-        {typeof media === 'object' && (
-          <Fragment>
-            <Media
-              resource={media}
-              // fill
-              imgClassName={classes.image}
-              priority
-            />
-            {media?.caption && <RichText content={media.caption} className={classes.caption} />}
-          </Fragment>
-        )}
+      <div className={classes.featureImageGridSpacing}>
+        <FeatureImageGrid images={featureImages} />
       </div>
     </Gutter>
   )

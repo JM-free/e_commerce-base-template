@@ -60,5 +60,25 @@ export const hero: Field = {
           ['highImpact', 'mediumImpact', 'customHero'].includes(type),
       },
     },
+    {
+      name: 'featureImages',
+      type: 'array',
+      maxRows: 4,
+      admin: {
+        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
+      },
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+        {
+          name: 'caption',
+          type: 'text',
+        },
+      ],
+    },
   ],
 }

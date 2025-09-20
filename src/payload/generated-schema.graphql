@@ -64,6 +64,7 @@ type Page_Hero {
   richText(depth: Int): JSON
   links: [Page_Hero_Links!]
   media(where: Page_Hero_Media_where): Media
+  featureImages: [Page_Hero_FeatureImages!]
 }
 
 enum Page_Hero_type {
@@ -444,6 +445,170 @@ input Page_Hero_Media_where_or {
   width: Page_Hero_Media_width_operator
   height: Page_Hero_Media_height_operator
   id: Page_Hero_Media_id_operator
+}
+
+type Page_Hero_FeatureImages {
+  image(where: Page_Hero_FeatureImages_Image_where): Media
+  caption: String
+  id: String
+}
+
+input Page_Hero_FeatureImages_Image_where {
+  alt: Page_Hero_FeatureImages_Image_alt_operator
+  caption: Page_Hero_FeatureImages_Image_caption_operator
+  updatedAt: Page_Hero_FeatureImages_Image_updatedAt_operator
+  createdAt: Page_Hero_FeatureImages_Image_createdAt_operator
+  url: Page_Hero_FeatureImages_Image_url_operator
+  filename: Page_Hero_FeatureImages_Image_filename_operator
+  mimeType: Page_Hero_FeatureImages_Image_mimeType_operator
+  filesize: Page_Hero_FeatureImages_Image_filesize_operator
+  width: Page_Hero_FeatureImages_Image_width_operator
+  height: Page_Hero_FeatureImages_Image_height_operator
+  id: Page_Hero_FeatureImages_Image_id_operator
+  AND: [Page_Hero_FeatureImages_Image_where_and]
+  OR: [Page_Hero_FeatureImages_Image_where_or]
+}
+
+input Page_Hero_FeatureImages_Image_alt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Page_Hero_FeatureImages_Image_caption_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
+  exists: Boolean
+}
+
+input Page_Hero_FeatureImages_Image_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Page_Hero_FeatureImages_Image_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Page_Hero_FeatureImages_Image_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Page_Hero_FeatureImages_Image_filename_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Page_Hero_FeatureImages_Image_mimeType_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Page_Hero_FeatureImages_Image_filesize_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Page_Hero_FeatureImages_Image_width_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Page_Hero_FeatureImages_Image_height_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Page_Hero_FeatureImages_Image_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Page_Hero_FeatureImages_Image_where_and {
+  alt: Page_Hero_FeatureImages_Image_alt_operator
+  caption: Page_Hero_FeatureImages_Image_caption_operator
+  updatedAt: Page_Hero_FeatureImages_Image_updatedAt_operator
+  createdAt: Page_Hero_FeatureImages_Image_createdAt_operator
+  url: Page_Hero_FeatureImages_Image_url_operator
+  filename: Page_Hero_FeatureImages_Image_filename_operator
+  mimeType: Page_Hero_FeatureImages_Image_mimeType_operator
+  filesize: Page_Hero_FeatureImages_Image_filesize_operator
+  width: Page_Hero_FeatureImages_Image_width_operator
+  height: Page_Hero_FeatureImages_Image_height_operator
+  id: Page_Hero_FeatureImages_Image_id_operator
+}
+
+input Page_Hero_FeatureImages_Image_where_or {
+  alt: Page_Hero_FeatureImages_Image_alt_operator
+  caption: Page_Hero_FeatureImages_Image_caption_operator
+  updatedAt: Page_Hero_FeatureImages_Image_updatedAt_operator
+  createdAt: Page_Hero_FeatureImages_Image_createdAt_operator
+  url: Page_Hero_FeatureImages_Image_url_operator
+  filename: Page_Hero_FeatureImages_Image_filename_operator
+  mimeType: Page_Hero_FeatureImages_Image_mimeType_operator
+  filesize: Page_Hero_FeatureImages_Image_filesize_operator
+  width: Page_Hero_FeatureImages_Image_width_operator
+  height: Page_Hero_FeatureImages_Image_height_operator
+  id: Page_Hero_FeatureImages_Image_id_operator
 }
 
 union Page_Layout = Cta | Content | MediaBlock | Archive
@@ -1659,6 +1824,9 @@ input Page_where {
   hero__links__link__appearance: Page_hero__links__link__appearance_operator
   hero__links__id: Page_hero__links__id_operator
   hero__media: Page_hero__media_operator
+  hero__featureImages__image: Page_hero__featureImages__image_operator
+  hero__featureImages__caption: Page_hero__featureImages__caption_operator
+  hero__featureImages__id: Page_hero__featureImages__id_operator
   slug: Page_slug_operator
   meta__title: Page_meta__title_operator
   meta__description: Page_meta__description_operator
@@ -1800,6 +1968,33 @@ input Page_hero__media_operator {
   not_equals: String
 }
 
+input Page_hero__featureImages__image_operator {
+  equals: String
+  not_equals: String
+}
+
+input Page_hero__featureImages__caption_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Page_hero__featureImages__id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
 input Page_slug_operator {
   equals: String
   not_equals: String
@@ -1897,6 +2092,9 @@ input Page_where_and {
   hero__links__link__appearance: Page_hero__links__link__appearance_operator
   hero__links__id: Page_hero__links__id_operator
   hero__media: Page_hero__media_operator
+  hero__featureImages__image: Page_hero__featureImages__image_operator
+  hero__featureImages__caption: Page_hero__featureImages__caption_operator
+  hero__featureImages__id: Page_hero__featureImages__id_operator
   slug: Page_slug_operator
   meta__title: Page_meta__title_operator
   meta__description: Page_meta__description_operator
@@ -1921,6 +2119,9 @@ input Page_where_or {
   hero__links__link__appearance: Page_hero__links__link__appearance_operator
   hero__links__id: Page_hero__links__id_operator
   hero__media: Page_hero__media_operator
+  hero__featureImages__image: Page_hero__featureImages__image_operator
+  hero__featureImages__caption: Page_hero__featureImages__caption_operator
+  hero__featureImages__id: Page_hero__featureImages__id_operator
   slug: Page_slug_operator
   meta__title: Page_meta__title_operator
   meta__description: Page_meta__description_operator
@@ -2027,6 +2228,7 @@ type PagesDocAccessFields_hero_Fields {
   richText: PagesDocAccessFields_hero_richText
   links: PagesDocAccessFields_hero_links
   media: PagesDocAccessFields_hero_media
+  featureImages: PagesDocAccessFields_hero_featureImages
 }
 
 type PagesDocAccessFields_hero_type {
@@ -2342,6 +2544,105 @@ type PagesDocAccessFields_hero_media_Update {
 }
 
 type PagesDocAccessFields_hero_media_Delete {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages {
+  create: PagesDocAccessFields_hero_featureImages_Create
+  read: PagesDocAccessFields_hero_featureImages_Read
+  update: PagesDocAccessFields_hero_featureImages_Update
+  delete: PagesDocAccessFields_hero_featureImages_Delete
+  fields: PagesDocAccessFields_hero_featureImages_Fields
+}
+
+type PagesDocAccessFields_hero_featureImages_Create {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages_Read {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages_Update {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages_Delete {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages_Fields {
+  image: PagesDocAccessFields_hero_featureImages_image
+  caption: PagesDocAccessFields_hero_featureImages_caption
+  id: PagesDocAccessFields_hero_featureImages_id
+}
+
+type PagesDocAccessFields_hero_featureImages_image {
+  create: PagesDocAccessFields_hero_featureImages_image_Create
+  read: PagesDocAccessFields_hero_featureImages_image_Read
+  update: PagesDocAccessFields_hero_featureImages_image_Update
+  delete: PagesDocAccessFields_hero_featureImages_image_Delete
+}
+
+type PagesDocAccessFields_hero_featureImages_image_Create {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages_image_Read {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages_image_Update {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages_image_Delete {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages_caption {
+  create: PagesDocAccessFields_hero_featureImages_caption_Create
+  read: PagesDocAccessFields_hero_featureImages_caption_Read
+  update: PagesDocAccessFields_hero_featureImages_caption_Update
+  delete: PagesDocAccessFields_hero_featureImages_caption_Delete
+}
+
+type PagesDocAccessFields_hero_featureImages_caption_Create {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages_caption_Read {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages_caption_Update {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages_caption_Delete {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages_id {
+  create: PagesDocAccessFields_hero_featureImages_id_Create
+  read: PagesDocAccessFields_hero_featureImages_id_Read
+  update: PagesDocAccessFields_hero_featureImages_id_Update
+  delete: PagesDocAccessFields_hero_featureImages_id_Delete
+}
+
+type PagesDocAccessFields_hero_featureImages_id_Create {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages_id_Read {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages_id_Update {
+  permission: Boolean!
+}
+
+type PagesDocAccessFields_hero_featureImages_id_Delete {
   permission: Boolean!
 }
 
@@ -2663,6 +2964,7 @@ type PageVersion_Version_Hero {
   richText(depth: Int): JSON
   links: [PageVersion_Version_Hero_Links!]
   media(where: PageVersion_Version_Hero_Media_where): Media
+  featureImages: [PageVersion_Version_Hero_FeatureImages!]
 }
 
 enum PageVersion_Version_Hero_type {
@@ -3026,6 +3328,170 @@ input PageVersion_Version_Hero_Media_where_or {
   id: PageVersion_Version_Hero_Media_id_operator
 }
 
+type PageVersion_Version_Hero_FeatureImages {
+  image(where: PageVersion_Version_Hero_FeatureImages_Image_where): Media
+  caption: String
+  id: String
+}
+
+input PageVersion_Version_Hero_FeatureImages_Image_where {
+  alt: PageVersion_Version_Hero_FeatureImages_Image_alt_operator
+  caption: PageVersion_Version_Hero_FeatureImages_Image_caption_operator
+  updatedAt: PageVersion_Version_Hero_FeatureImages_Image_updatedAt_operator
+  createdAt: PageVersion_Version_Hero_FeatureImages_Image_createdAt_operator
+  url: PageVersion_Version_Hero_FeatureImages_Image_url_operator
+  filename: PageVersion_Version_Hero_FeatureImages_Image_filename_operator
+  mimeType: PageVersion_Version_Hero_FeatureImages_Image_mimeType_operator
+  filesize: PageVersion_Version_Hero_FeatureImages_Image_filesize_operator
+  width: PageVersion_Version_Hero_FeatureImages_Image_width_operator
+  height: PageVersion_Version_Hero_FeatureImages_Image_height_operator
+  id: PageVersion_Version_Hero_FeatureImages_Image_id_operator
+  AND: [PageVersion_Version_Hero_FeatureImages_Image_where_and]
+  OR: [PageVersion_Version_Hero_FeatureImages_Image_where_or]
+}
+
+input PageVersion_Version_Hero_FeatureImages_Image_alt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input PageVersion_Version_Hero_FeatureImages_Image_caption_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
+  exists: Boolean
+}
+
+input PageVersion_Version_Hero_FeatureImages_Image_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input PageVersion_Version_Hero_FeatureImages_Image_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input PageVersion_Version_Hero_FeatureImages_Image_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input PageVersion_Version_Hero_FeatureImages_Image_filename_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input PageVersion_Version_Hero_FeatureImages_Image_mimeType_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input PageVersion_Version_Hero_FeatureImages_Image_filesize_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input PageVersion_Version_Hero_FeatureImages_Image_width_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input PageVersion_Version_Hero_FeatureImages_Image_height_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input PageVersion_Version_Hero_FeatureImages_Image_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input PageVersion_Version_Hero_FeatureImages_Image_where_and {
+  alt: PageVersion_Version_Hero_FeatureImages_Image_alt_operator
+  caption: PageVersion_Version_Hero_FeatureImages_Image_caption_operator
+  updatedAt: PageVersion_Version_Hero_FeatureImages_Image_updatedAt_operator
+  createdAt: PageVersion_Version_Hero_FeatureImages_Image_createdAt_operator
+  url: PageVersion_Version_Hero_FeatureImages_Image_url_operator
+  filename: PageVersion_Version_Hero_FeatureImages_Image_filename_operator
+  mimeType: PageVersion_Version_Hero_FeatureImages_Image_mimeType_operator
+  filesize: PageVersion_Version_Hero_FeatureImages_Image_filesize_operator
+  width: PageVersion_Version_Hero_FeatureImages_Image_width_operator
+  height: PageVersion_Version_Hero_FeatureImages_Image_height_operator
+  id: PageVersion_Version_Hero_FeatureImages_Image_id_operator
+}
+
+input PageVersion_Version_Hero_FeatureImages_Image_where_or {
+  alt: PageVersion_Version_Hero_FeatureImages_Image_alt_operator
+  caption: PageVersion_Version_Hero_FeatureImages_Image_caption_operator
+  updatedAt: PageVersion_Version_Hero_FeatureImages_Image_updatedAt_operator
+  createdAt: PageVersion_Version_Hero_FeatureImages_Image_createdAt_operator
+  url: PageVersion_Version_Hero_FeatureImages_Image_url_operator
+  filename: PageVersion_Version_Hero_FeatureImages_Image_filename_operator
+  mimeType: PageVersion_Version_Hero_FeatureImages_Image_mimeType_operator
+  filesize: PageVersion_Version_Hero_FeatureImages_Image_filesize_operator
+  width: PageVersion_Version_Hero_FeatureImages_Image_width_operator
+  height: PageVersion_Version_Hero_FeatureImages_Image_height_operator
+  id: PageVersion_Version_Hero_FeatureImages_Image_id_operator
+}
+
 union PageVersion_Version_Layout = Cta | Content | MediaBlock | Archive
 
 type PageVersion_Version_Meta {
@@ -3226,6 +3692,9 @@ input versionsPage_where {
   version__hero__links__link__appearance: versionsPage_version__hero__links__link__appearance_operator
   version__hero__links__id: versionsPage_version__hero__links__id_operator
   version__hero__media: versionsPage_version__hero__media_operator
+  version__hero__featureImages__image: versionsPage_version__hero__featureImages__image_operator
+  version__hero__featureImages__caption: versionsPage_version__hero__featureImages__caption_operator
+  version__hero__featureImages__id: versionsPage_version__hero__featureImages__id_operator
   version__slug: versionsPage_version__slug_operator
   version__meta__title: versionsPage_version__meta__title_operator
   version__meta__description: versionsPage_version__meta__description_operator
@@ -3379,6 +3848,33 @@ input versionsPage_version__hero__media_operator {
   not_equals: String
 }
 
+input versionsPage_version__hero__featureImages__image_operator {
+  equals: String
+  not_equals: String
+}
+
+input versionsPage_version__hero__featureImages__caption_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input versionsPage_version__hero__featureImages__id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
 input versionsPage_version__slug_operator {
   equals: String
   not_equals: String
@@ -3505,6 +4001,9 @@ input versionsPage_where_and {
   version__hero__links__link__appearance: versionsPage_version__hero__links__link__appearance_operator
   version__hero__links__id: versionsPage_version__hero__links__id_operator
   version__hero__media: versionsPage_version__hero__media_operator
+  version__hero__featureImages__image: versionsPage_version__hero__featureImages__image_operator
+  version__hero__featureImages__caption: versionsPage_version__hero__featureImages__caption_operator
+  version__hero__featureImages__id: versionsPage_version__hero__featureImages__id_operator
   version__slug: versionsPage_version__slug_operator
   version__meta__title: versionsPage_version__meta__title_operator
   version__meta__description: versionsPage_version__meta__description_operator
@@ -3533,6 +4032,9 @@ input versionsPage_where_or {
   version__hero__links__link__appearance: versionsPage_version__hero__links__link__appearance_operator
   version__hero__links__id: versionsPage_version__hero__links__id_operator
   version__hero__media: versionsPage_version__hero__media_operator
+  version__hero__featureImages__image: versionsPage_version__hero__featureImages__image_operator
+  version__hero__featureImages__caption: versionsPage_version__hero__featureImages__caption_operator
+  version__hero__featureImages__id: versionsPage_version__hero__featureImages__id_operator
   version__slug: versionsPage_version__slug_operator
   version__meta__title: versionsPage_version__meta__title_operator
   version__meta__description: versionsPage_version__meta__description_operator
@@ -8996,6 +9498,7 @@ type PagesFields_hero_Fields {
   richText: PagesFields_hero_richText
   links: PagesFields_hero_links
   media: PagesFields_hero_media
+  featureImages: PagesFields_hero_featureImages
 }
 
 type PagesFields_hero_type {
@@ -9311,6 +9814,105 @@ type PagesFields_hero_media_Update {
 }
 
 type PagesFields_hero_media_Delete {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages {
+  create: PagesFields_hero_featureImages_Create
+  read: PagesFields_hero_featureImages_Read
+  update: PagesFields_hero_featureImages_Update
+  delete: PagesFields_hero_featureImages_Delete
+  fields: PagesFields_hero_featureImages_Fields
+}
+
+type PagesFields_hero_featureImages_Create {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages_Read {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages_Update {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages_Delete {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages_Fields {
+  image: PagesFields_hero_featureImages_image
+  caption: PagesFields_hero_featureImages_caption
+  id: PagesFields_hero_featureImages_id
+}
+
+type PagesFields_hero_featureImages_image {
+  create: PagesFields_hero_featureImages_image_Create
+  read: PagesFields_hero_featureImages_image_Read
+  update: PagesFields_hero_featureImages_image_Update
+  delete: PagesFields_hero_featureImages_image_Delete
+}
+
+type PagesFields_hero_featureImages_image_Create {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages_image_Read {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages_image_Update {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages_image_Delete {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages_caption {
+  create: PagesFields_hero_featureImages_caption_Create
+  read: PagesFields_hero_featureImages_caption_Read
+  update: PagesFields_hero_featureImages_caption_Update
+  delete: PagesFields_hero_featureImages_caption_Delete
+}
+
+type PagesFields_hero_featureImages_caption_Create {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages_caption_Read {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages_caption_Update {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages_caption_Delete {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages_id {
+  create: PagesFields_hero_featureImages_id_Create
+  read: PagesFields_hero_featureImages_id_Read
+  update: PagesFields_hero_featureImages_id_Update
+  delete: PagesFields_hero_featureImages_id_Delete
+}
+
+type PagesFields_hero_featureImages_id_Create {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages_id_Read {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages_id_Update {
+  permission: Boolean!
+}
+
+type PagesFields_hero_featureImages_id_Delete {
   permission: Boolean!
 }
 
@@ -12705,6 +13307,7 @@ input mutationPage_HeroInput {
   richText: JSON!
   links: [mutationPage_Hero_LinksInput]
   media: String
+  featureImages: [mutationPage_Hero_FeatureImagesInput]
 }
 
 enum Page_Hero_type_MutationInput {
@@ -12745,6 +13348,12 @@ enum Page_Hero_Links_Link_appearance_MutationInput {
   secondary
 }
 
+input mutationPage_Hero_FeatureImagesInput {
+  image: String!
+  caption: String
+  id: String
+}
+
 input mutationPage_MetaInput {
   title: String
   description: String
@@ -12773,6 +13382,7 @@ input mutationPageUpdate_HeroInput {
   richText: JSON!
   links: [mutationPageUpdate_Hero_LinksInput]
   media: String
+  featureImages: [mutationPageUpdate_Hero_FeatureImagesInput]
 }
 
 enum PageUpdate_Hero_type_MutationInput {
@@ -12811,6 +13421,12 @@ enum PageUpdate_Hero_Links_Link_appearance_MutationInput {
   default
   primary
   secondary
+}
+
+input mutationPageUpdate_Hero_FeatureImagesInput {
+  image: String!
+  caption: String
+  id: String
 }
 
 input mutationPageUpdate_MetaInput {

@@ -1,0 +1,41 @@
+@use '../_css/queries.scss' as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: calc(var(--base) * 2);
+
+  @include mid-break {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include small-break {
+    grid-template-columns: 1fr;
+  }
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  /* 3:2 aspect ratio; adjust if needed */
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+}
+
+.caption {
+  margin-top: var(--base);
+  font-size: 0.875rem;
+  color: var(--theme-elevation-500);
+}
