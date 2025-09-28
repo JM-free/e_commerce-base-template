@@ -38,6 +38,8 @@ type Query {
   docAccessHeader: headerDocAccess
   Footer(draft: Boolean): Footer
   docAccessFooter: footerDocAccess
+  CategoriesSettings(draft: Boolean): CategoriesSettings
+  docAccessCategoriesSettings: categories_settingsDocAccess
   Access: Access
 }
 
@@ -9386,6 +9388,261 @@ type FooterUpdateDocAccess {
   where: JSONObject
 }
 
+type CategoriesSettings {
+  bottomImage(where: CategoriesSettings_BottomImage_where): Media
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+input CategoriesSettings_BottomImage_where {
+  alt: CategoriesSettings_BottomImage_alt_operator
+  caption: CategoriesSettings_BottomImage_caption_operator
+  updatedAt: CategoriesSettings_BottomImage_updatedAt_operator
+  createdAt: CategoriesSettings_BottomImage_createdAt_operator
+  url: CategoriesSettings_BottomImage_url_operator
+  filename: CategoriesSettings_BottomImage_filename_operator
+  mimeType: CategoriesSettings_BottomImage_mimeType_operator
+  filesize: CategoriesSettings_BottomImage_filesize_operator
+  width: CategoriesSettings_BottomImage_width_operator
+  height: CategoriesSettings_BottomImage_height_operator
+  id: CategoriesSettings_BottomImage_id_operator
+  AND: [CategoriesSettings_BottomImage_where_and]
+  OR: [CategoriesSettings_BottomImage_where_or]
+}
+
+input CategoriesSettings_BottomImage_alt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input CategoriesSettings_BottomImage_caption_operator {
+  equals: JSON
+  not_equals: JSON
+  like: JSON
+  contains: JSON
+  exists: Boolean
+}
+
+input CategoriesSettings_BottomImage_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input CategoriesSettings_BottomImage_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input CategoriesSettings_BottomImage_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input CategoriesSettings_BottomImage_filename_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input CategoriesSettings_BottomImage_mimeType_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input CategoriesSettings_BottomImage_filesize_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input CategoriesSettings_BottomImage_width_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input CategoriesSettings_BottomImage_height_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input CategoriesSettings_BottomImage_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input CategoriesSettings_BottomImage_where_and {
+  alt: CategoriesSettings_BottomImage_alt_operator
+  caption: CategoriesSettings_BottomImage_caption_operator
+  updatedAt: CategoriesSettings_BottomImage_updatedAt_operator
+  createdAt: CategoriesSettings_BottomImage_createdAt_operator
+  url: CategoriesSettings_BottomImage_url_operator
+  filename: CategoriesSettings_BottomImage_filename_operator
+  mimeType: CategoriesSettings_BottomImage_mimeType_operator
+  filesize: CategoriesSettings_BottomImage_filesize_operator
+  width: CategoriesSettings_BottomImage_width_operator
+  height: CategoriesSettings_BottomImage_height_operator
+  id: CategoriesSettings_BottomImage_id_operator
+}
+
+input CategoriesSettings_BottomImage_where_or {
+  alt: CategoriesSettings_BottomImage_alt_operator
+  caption: CategoriesSettings_BottomImage_caption_operator
+  updatedAt: CategoriesSettings_BottomImage_updatedAt_operator
+  createdAt: CategoriesSettings_BottomImage_createdAt_operator
+  url: CategoriesSettings_BottomImage_url_operator
+  filename: CategoriesSettings_BottomImage_filename_operator
+  mimeType: CategoriesSettings_BottomImage_mimeType_operator
+  filesize: CategoriesSettings_BottomImage_filesize_operator
+  width: CategoriesSettings_BottomImage_width_operator
+  height: CategoriesSettings_BottomImage_height_operator
+  id: CategoriesSettings_BottomImage_id_operator
+}
+
+type categories_settingsDocAccess {
+  fields: CategoriesSettingsDocAccessFields
+  read: CategoriesSettingsReadDocAccess
+  update: CategoriesSettingsUpdateDocAccess
+}
+
+type CategoriesSettingsDocAccessFields {
+  bottomImage: CategoriesSettingsDocAccessFields_bottomImage
+  updatedAt: CategoriesSettingsDocAccessFields_updatedAt
+  createdAt: CategoriesSettingsDocAccessFields_createdAt
+}
+
+type CategoriesSettingsDocAccessFields_bottomImage {
+  create: CategoriesSettingsDocAccessFields_bottomImage_Create
+  read: CategoriesSettingsDocAccessFields_bottomImage_Read
+  update: CategoriesSettingsDocAccessFields_bottomImage_Update
+  delete: CategoriesSettingsDocAccessFields_bottomImage_Delete
+}
+
+type CategoriesSettingsDocAccessFields_bottomImage_Create {
+  permission: Boolean!
+}
+
+type CategoriesSettingsDocAccessFields_bottomImage_Read {
+  permission: Boolean!
+}
+
+type CategoriesSettingsDocAccessFields_bottomImage_Update {
+  permission: Boolean!
+}
+
+type CategoriesSettingsDocAccessFields_bottomImage_Delete {
+  permission: Boolean!
+}
+
+type CategoriesSettingsDocAccessFields_updatedAt {
+  create: CategoriesSettingsDocAccessFields_updatedAt_Create
+  read: CategoriesSettingsDocAccessFields_updatedAt_Read
+  update: CategoriesSettingsDocAccessFields_updatedAt_Update
+  delete: CategoriesSettingsDocAccessFields_updatedAt_Delete
+}
+
+type CategoriesSettingsDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type CategoriesSettingsDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type CategoriesSettingsDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type CategoriesSettingsDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type CategoriesSettingsDocAccessFields_createdAt {
+  create: CategoriesSettingsDocAccessFields_createdAt_Create
+  read: CategoriesSettingsDocAccessFields_createdAt_Read
+  update: CategoriesSettingsDocAccessFields_createdAt_Update
+  delete: CategoriesSettingsDocAccessFields_createdAt_Delete
+}
+
+type CategoriesSettingsDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type CategoriesSettingsDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type CategoriesSettingsDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type CategoriesSettingsDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type CategoriesSettingsReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CategoriesSettingsUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type Access {
   canAccessAdmin: Boolean!
   pages: pagesAccess
@@ -9400,6 +9657,7 @@ type Access {
   settings: settingsAccess
   header: headerAccess
   footer: footerAccess
+  categories_settings: categories_settingsAccess
 }
 
 type pagesAccess {
@@ -13248,6 +13506,97 @@ type FooterUpdateAccess {
   where: JSONObject
 }
 
+type categories_settingsAccess {
+  fields: CategoriesSettingsFields
+  read: CategoriesSettingsReadAccess
+  update: CategoriesSettingsUpdateAccess
+}
+
+type CategoriesSettingsFields {
+  bottomImage: CategoriesSettingsFields_bottomImage
+  updatedAt: CategoriesSettingsFields_updatedAt
+  createdAt: CategoriesSettingsFields_createdAt
+}
+
+type CategoriesSettingsFields_bottomImage {
+  create: CategoriesSettingsFields_bottomImage_Create
+  read: CategoriesSettingsFields_bottomImage_Read
+  update: CategoriesSettingsFields_bottomImage_Update
+  delete: CategoriesSettingsFields_bottomImage_Delete
+}
+
+type CategoriesSettingsFields_bottomImage_Create {
+  permission: Boolean!
+}
+
+type CategoriesSettingsFields_bottomImage_Read {
+  permission: Boolean!
+}
+
+type CategoriesSettingsFields_bottomImage_Update {
+  permission: Boolean!
+}
+
+type CategoriesSettingsFields_bottomImage_Delete {
+  permission: Boolean!
+}
+
+type CategoriesSettingsFields_updatedAt {
+  create: CategoriesSettingsFields_updatedAt_Create
+  read: CategoriesSettingsFields_updatedAt_Read
+  update: CategoriesSettingsFields_updatedAt_Update
+  delete: CategoriesSettingsFields_updatedAt_Delete
+}
+
+type CategoriesSettingsFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type CategoriesSettingsFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type CategoriesSettingsFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type CategoriesSettingsFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type CategoriesSettingsFields_createdAt {
+  create: CategoriesSettingsFields_createdAt_Create
+  read: CategoriesSettingsFields_createdAt_Read
+  update: CategoriesSettingsFields_createdAt_Update
+  delete: CategoriesSettingsFields_createdAt_Delete
+}
+
+type CategoriesSettingsFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type CategoriesSettingsFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type CategoriesSettingsFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type CategoriesSettingsFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type CategoriesSettingsReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CategoriesSettingsUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type Mutation {
   createPage(data: mutationPageInput!, draft: Boolean): Page
   updatePage(id: String!, autosave: Boolean, data: mutationPageUpdateInput!, draft: Boolean): Page
@@ -13288,6 +13637,7 @@ type Mutation {
   updateSettings(data: mutationSettingsInput!, draft: Boolean): Settings
   updateHeader(data: mutationHeaderInput!, draft: Boolean): Header
   updateFooter(data: mutationFooterInput!, draft: Boolean): Footer
+  updateCategoriesSettings(data: mutationCategoriesSettingsInput!, draft: Boolean): CategoriesSettings
 }
 
 input mutationPageInput {
@@ -13847,4 +14197,10 @@ input Footer_NavItems_Link_ReferenceRelationshipInput {
 
 enum Footer_NavItems_Link_ReferenceRelationshipInputRelationTo {
   pages
+}
+
+input mutationCategoriesSettingsInput {
+  bottomImage: String
+  updatedAt: String
+  createdAt: String
 }

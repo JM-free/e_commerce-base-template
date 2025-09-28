@@ -1,12 +1,20 @@
 import React from 'react'
 import Link from 'next/link'
 
-import { Category } from '../../../payload/payload-types'
+import { Category, Media } from '../../../payload/payload-types'
 import CategoryCard from './CategoryCard'
 
 import classes from './index.module.scss'
 
-const Categories = ({ categories }: { categories: Category[] }) => {
+type Props = {
+  categories: Category[]
+  bottomImage?: string | Media
+}
+
+const Categories: React.FC<Props> = ({ categories, bottomImage }) => {
+  const bottomImageUrl = typeof bottomImage === 'string' ? undefined : bottomImage?.url
+  const bottomImageAlt = typeof bottomImage === 'string' ? '' : bottomImage?.alt ?? ''
+
   return (
     <section className={classes.container}>
       <div className={classes.titleWrapper}>
@@ -19,6 +27,13 @@ const Categories = ({ categories }: { categories: Category[] }) => {
           <CategoryCard key={category.id} category={category} />
         ))}
       </div>
+
+      {bottomImageUrl ? (
+        <div className={classes.bottomImage}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={bottomImageUrl} alt={bottomImageAlt} />
+        </div>
+      ) : null}
     </section>
   )
 }

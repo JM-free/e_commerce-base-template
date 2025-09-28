@@ -26,3 +26,16 @@
     grid-template-columns: 1fr;
   }
 }
+
+.bottomImage {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+  }
+}

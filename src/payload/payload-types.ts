@@ -29,6 +29,7 @@ export interface Config {
     settings: Settings;
     header: Header;
     footer: Footer;
+    'categories-settings': CategoriesSettings;
   };
 }
 export interface Page {
@@ -529,6 +530,12 @@ export interface Footer {
     };
     id?: string;
   }[];
+  updatedAt?: string;
+  createdAt?: string;
+}
+export interface CategoriesSettings {
+  id: string;
+  bottomImage?: string | Media;
   updatedAt?: string;
   createdAt?: string;
 }

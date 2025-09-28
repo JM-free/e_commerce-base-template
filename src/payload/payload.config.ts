@@ -26,6 +26,7 @@ import { seed } from './endpoints/seed'
 import { Footer } from './globals/Footer'
 import { Header } from './globals/Header'
 import { Settings } from './globals/Settings'
+import { CategoriesSettings } from './globals/CategoriesSettings'
 import { priceUpdated } from './stripe/webhooks/priceUpdated'
 import { productUpdated } from './stripe/webhooks/productUpdated'
 
@@ -82,7 +83,7 @@ export default buildConfig({
   // database-adapter-config-end
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   collections: [Pages, Products, Orders, Media, Categories, Users, DigitalFiles],
-  globals: [Settings, Header, Footer],
+  globals: [Settings, Header, Footer, CategoriesSettings],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },

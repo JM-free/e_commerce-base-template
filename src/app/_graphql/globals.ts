@@ -42,3 +42,22 @@ query Settings {
   ${SETTINGS}
 }
 `
+
+export const CATEGORIES_SETTINGS = `
+  CategoriesSettings {
+    bottomImage {
+      url
+      alt
+      filename
+      width
+      height
+      id
+    }
+  }
+`
+
+export const CATEGORIES_SETTINGS_QUERY = `
+query CategoriesSettings {
+  ${CATEGORIES_SETTINGS}
+}
+`

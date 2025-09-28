@@ -21,6 +21,7 @@ import { generateMeta } from '../../_utilities/generateMeta'
 export const dynamic = 'force-dynamic'
 
 import Categories from '../../_components/Categories'
+import { fetchCategoriesSettings } from '../../_api/fetchCategoriesSettings'
 
 import classes from './index.module.scss'
 
@@ -29,6 +30,7 @@ export default async function Page({ params: { slug = 'home' } }) {
 
   let page: Page | null = null
   let categories: Category[] | null = null
+  let categoriesSettings: { bottomImage?: any } | null = null
 
   try {
     page = await fetchDoc<Page>({
@@ -38,6 +40,8 @@ export default async function Page({ params: { slug = 'home' } }) {
     })
 
     categories = await fetchDocs<Category>('categories')
+
+    categoriesSettings = await fetchCategoriesSettings()
   } catch (error) {
     // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
     // so swallow the error here and simply render the page with fallback data where necessary
@@ -65,7 +69,7 @@ export default async function Page({ params: { slug = 'home' } }) {
           <Hero {...hero} />
 
           <Gutter className={classes.home}>
-            <Categories categories={categories ?? []} />
+            <Categories categories={categories ?? []} bottomImage={categoriesSettings?.bottomImage} />
           </Gutter>
         </section>
       ) : (
