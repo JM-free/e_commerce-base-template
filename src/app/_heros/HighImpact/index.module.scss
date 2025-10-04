@@ -11,10 +11,13 @@
 }
 
 .media {
-  width: calc(100% + var(--gutter-h));
-  left: calc(var(--gutter-h) / -2);
-  margin-top: calc(var(--base));
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+
 
   @include mid-break {
     left: 0;
