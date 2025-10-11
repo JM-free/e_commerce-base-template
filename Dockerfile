@@ -35,4 +35,4 @@ EXPOSE 3000
 
 # First: build Next at runtime using real env vars (DATABASE_URI, etc.)
 # Then: start the server normally
-CMD ["sh", "-c", "cross-env PAYLOAD_CONFIG_PATH=dist/payload/payload.config.js NEXT_BUILD=true node dist/server.js && node dist/server.js"]
+CMD ["sh", "-c", "NEXT_BUILD=true node dist/server.js && node dist/server.js"]
