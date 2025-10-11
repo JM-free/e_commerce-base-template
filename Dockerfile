@@ -12,17 +12,13 @@ RUN yarn install
 # Copy the rest of the source
 COPY . .
 
-
-# Provide placeholders required only during build
-ENV PAYLOAD_SECRET=buildtime-placeholder
-ENV DATABASE_URI=mongodb://127.0.0.1:27017/buildtime-placeholder
-ENV PAYLOAD_PUBLIC_SERVER_URL=http://localhost:3000
-RUN yarn build
+# Only build steps that don’t require a live DB
+# (skip the template’s `yarn build` which calls `build:next`)
+RUN yarn build:payload && yarn build:server && yarn copyfiles
 
 # ---------- Runtime ----------
 FROM base as runtime
 ENV NODE_ENV=production
-# Fix: correct path for your payload config in dist
 ENV PAYLOAD_CONFIG_PATH=dist/payload/payload.config.js
 WORKDIR /home/node/app
 
@@ -36,4 +32,7 @@ COPY --from=builder /home/node/app/dist ./dist
 COPY --from=builder /home/node/app/build ./build
 
 EXPOSE 3000
-CMD ["node", "dist/server.js"]
+
+# First: build Next at runtime using real env vars (DATABASE_URI, etc.)
+# Then: start the server normally
+CMD ["sh", "-c", "cross-env PAYLOAD_CONFIG_PATH=dist/payload/payload.config.js NEXT_BUILD=true node dist/server.js && node dist/server.js"]
