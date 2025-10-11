@@ -1,29 +1,50 @@
-version: '3'
+FROM node:18.8-alpine as base
 
-services:
-  payload:
-    image: node:18-alpine
-    ports:
-      - '3000:3000'
-    volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    working_dir: /home/node/app/
-    command: sh -c "yarn install && yarn dev"
-    depends_on:
-      - mongo
+  # ---------- Builder ----------
+FROM base as builder
+WORKDIR /home/node/app
 
-  mongo:
-    image: mongo:latest
-    ports:
-      - '27017:27017'
-    command:
-      - --storageEngine=wiredTiger
-    volumes:
-      - data:/data/db
-    logging:
-      driver: none
+  # Install dependencies first for better layer caching
+COPY package*.json ./
+COPY yarn.lock ./
+RUN yarn install
 
-volumes:
-  data:
-  node_modules:
+  # Copy the rest of the source
+COPY . .
+
+  # Only build steps that don’t require a live DB
+  # (skip the template’s `yarn build` which calls `build:next`)
+RUN yarn build:payload && yarn build:server && yarn copyfiles
+
+  # ---------- Runtime ----------
+FROM base as runtime
+ENV NODE_ENV=production
+ENV PAYLOAD_CONFIG_PATH=dist/payload/payload.config.js
+WORKDIR /home/node/app
+
+  # Only production deps in runtime image
+COPY package*.json ./
+COPY yarn.lock ./
+RUN yarn install --production --frozen-lockfile
+
+  # Copy built assets from builder
+COPY --from=builder /home/node/app/dist ./dist
+COPY --from=builder /home/node/app/build ./build
+
+  # IMPORTANT: copy Next.js source and configs needed for runtime build
+  # Adjust this list to match your repo. The Ecommerce template typically has Next in `src/` and assets in `public/`.
+COPY --from=builder /home/node/app/next.config.js ./
+COPY --from=builder /home/node/app/src ./src
+COPY --from=builder /home/node/app/public ./public
+
+  # If your project has these, copy them too (safe to include):
+  # COPY --from=builder /home/node/app/tsconfig.json ./
+  # COPY --from=builder /home/node/app/postcss.config.js ./
+  # COPY --from=builder /home/node/app/tailwind.config.js ./
+  # COPY --from=builder /home/node/app/.babelrc ./
+
+EXPOSE 3000
+
+  # First: build Next at runtime using real env vars (DATABASE_URI, etc.)
+  # Then: start the server normally
+CMD ["sh", "-c", "NEXT_BUILD=true node dist/server.js && node dist/server.js"]
