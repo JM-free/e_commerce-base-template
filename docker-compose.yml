@@ -12,8 +12,6 @@ services:
     command: sh -c "yarn install && yarn dev"
     depends_on:
       - mongo
-    env_file:
-      - .env
 
   mongo:
     image: mongo:latest
