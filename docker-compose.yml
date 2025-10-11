@@ -1,50 +1,15 @@
-FROM node:18.8-alpine as base
-
-  # ---------- Builder ----------
-FROM base as builder
-WORKDIR /home/node/app
-
-  # Install dependencies first for better layer caching
-COPY package*.json ./
-COPY yarn.lock ./
-RUN yarn install
-
-  # Copy the rest of the source
-COPY . .
-
-  # Only build steps that don’t require a live DB
-  # (skip the template’s `yarn build` which calls `build:next`)
-RUN yarn build:payload && yarn build:server && yarn copyfiles
-
-  # ---------- Runtime ----------
-FROM base as runtime
-ENV NODE_ENV=production
-ENV PAYLOAD_CONFIG_PATH=dist/payload/payload.config.js
-WORKDIR /home/node/app
-
-  # Only production deps in runtime image
-COPY package*.json ./
-COPY yarn.lock ./
-RUN yarn install --production --frozen-lockfile
-
-  # Copy built assets from builder
-COPY --from=builder /home/node/app/dist ./dist
-COPY --from=builder /home/node/app/build ./build
-
-  # IMPORTANT: include Next.js source and configs for runtime build
-  # Adjust paths to your repo; the template typically keeps Next under src/
-COPY --from=builder /home/node/app/next.config.js ./
-COPY --from=builder /home/node/app/src ./src
-COPY --from=builder /home/node/app/public ./public
-
-  # Optional but safe to include if present
-  # COPY --from=builder /home/node/app/tsconfig.json ./
-  # COPY --from=builder /home/node/app/postcss.config.js ./
-  # COPY --from=builder /home/node/app/tailwind.config.js ./
-  # COPY --from=builder /home/node/app/.babelrc ./
-
-EXPOSE 3000
-
-  # First: build Next at runtime using real env vars (DATABASE_URI, etc.)
-  # Then: start the server normally
-CMD ["sh", "-c", "NEXT_BUILD=true node dist/server.js && node dist/server.js"]
+version: "3.8"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    command: sh -c "NEXT_BUILD=true node dist/server.js && node dist/server.js"
+    # Uncomment the following lines if you want to develop locally with live code
+    volumes:
+      - .:/home/node/app
+      - /home/node/app/node_modules

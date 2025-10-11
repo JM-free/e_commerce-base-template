@@ -31,6 +31,18 @@ RUN yarn install --production --frozen-lockfile
 COPY --from=builder /home/node/app/dist ./dist
 COPY --from=builder /home/node/app/build ./build
 
+# Include Next.js source and configs for runtime build
+COPY --from=builder /home/node/app/next.config.js ./
+COPY --from=builder /home/node/app/src ./src
+COPY --from=builder /home/node/app/public ./public
+# Files imported by next.config.js
+COPY --from=builder /home/node/app/csp.js ./
+COPY --from=builder /home/node/app/redirects.js ./
+# TypeScript config and declarations (if present)
+COPY --from=builder /home/node/app/tsconfig.json ./
+COPY --from=builder /home/node/app/tsconfig.server.json ./
+COPY --from=builder /home/node/app/next-env.d.ts ./
+
 EXPOSE 3000
 
 # First: build Next at runtime using real env vars (DATABASE_URI, etc.)
