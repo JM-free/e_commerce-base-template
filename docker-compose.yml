@@ -31,13 +31,13 @@ RUN yarn install --production --frozen-lockfile
 COPY --from=builder /home/node/app/dist ./dist
 COPY --from=builder /home/node/app/build ./build
 
-  # IMPORTANT: copy Next.js source and configs needed for runtime build
-  # Adjust this list to match your repo. The Ecommerce template typically has Next in `src/` and assets in `public/`.
+  # IMPORTANT: include Next.js source and configs for runtime build
+  # Adjust paths to your repo; the template typically keeps Next under src/
 COPY --from=builder /home/node/app/next.config.js ./
 COPY --from=builder /home/node/app/src ./src
 COPY --from=builder /home/node/app/public ./public
 
-  # If your project has these, copy them too (safe to include):
+  # Optional but safe to include if present
   # COPY --from=builder /home/node/app/tsconfig.json ./
   # COPY --from=builder /home/node/app/postcss.config.js ./
   # COPY --from=builder /home/node/app/tailwind.config.js ./
