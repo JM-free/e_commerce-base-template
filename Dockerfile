@@ -13,9 +13,10 @@ RUN yarn install
 COPY . .
 
 
-# Provide a dummy secret only for build so Payload can initialize during NEXT build
-# This is overridden at runtime by Render environment variables
+# Provide placeholders required only during build
 ENV PAYLOAD_SECRET=buildtime-placeholder
+ENV DATABASE_URI=mongodb://127.0.0.1:27017/buildtime-placeholder
+ENV PAYLOAD_PUBLIC_SERVER_URL=http://localhost:3000
 RUN yarn build
 
 # ---------- Runtime ----------
