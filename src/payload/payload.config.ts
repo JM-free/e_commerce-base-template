@@ -1,8 +1,6 @@
 import { webpackBundler } from '@payloadcms/bundler-webpack' // bundler-import
 import { mongooseAdapter } from '@payloadcms/db-mongodb' // database-adapter-import
 import { payloadCloud } from '@payloadcms/plugin-cloud'
-// import formBuilder from '@payloadcms/plugin-form-builder'
-import BeforeDashboard from "./components/BeforeDashboard";
 import nestedDocs from '@payloadcms/plugin-nested-docs'
 import redirects from '@payloadcms/plugin-redirects'
 import seo from '@payloadcms/plugin-seo'
@@ -20,14 +18,16 @@ import { Orders } from './collections/Orders'
 import { Pages } from './collections/Pages'
 import Products from './collections/Products'
 import Users from './collections/Users'
+// import formBuilder from '@payloadcms/plugin-form-builder'
+import BeforeDashboard from './components/BeforeDashboard'
 import { createPaymentIntent } from './endpoints/create-payment-intent'
 import { customersProxy } from './endpoints/customers'
 import { productsProxy } from './endpoints/products'
 import { seed } from './endpoints/seed'
+import { CategoriesSettings } from './globals/CategoriesSettings'
 import { Footer } from './globals/Footer'
 import { Header } from './globals/Header'
 import { Settings } from './globals/Settings'
-import { CategoriesSettings } from './globals/CategoriesSettings'
 import { priceUpdated } from './stripe/webhooks/priceUpdated'
 import { productUpdated } from './stripe/webhooks/productUpdated'
 

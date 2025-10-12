@@ -2,7 +2,7 @@ import type { Media } from '../../payload/payload-types'
 import { CATEGORIES_SETTINGS_QUERY } from '../_graphql/globals'
 import { GRAPHQL_API_URL } from './shared'
 
-export type CategoriesSettingsResult = {
+export interface CategoriesSettingsResult {
   bottomImage?: string | Media
 }
 
@@ -24,7 +24,8 @@ export async function fetchCategoriesSettings(): Promise<CategoriesSettingsResul
       return res.json()
     })
     ?.then(res => {
-      if (res?.errors) throw new Error(res?.errors[0]?.message || 'Error fetching CategoriesSettings')
+      if (res?.errors)
+        throw new Error(res?.errors[0]?.message || 'Error fetching CategoriesSettings')
       return res.data?.CategoriesSettings as CategoriesSettingsResult
     })
 

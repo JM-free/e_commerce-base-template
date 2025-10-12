@@ -35,17 +35,17 @@ export const FeatureImageGrid: React.FC<Props> = ({ images }) => {
         return (
           <figure key={idx} className={classes.figure}>
             {width && height ? (
-              <Image
-                src={src}
-                alt={alt}
-                className={classes.image}
-                width={width}
-                height={height}
-              />
+              <Image src={src} alt={alt} className={classes.image} width={width} height={height} />
             ) : (
               // Fallback if dimensions are unavailable: use fill with a ratio box
               <div className={classes.imageWrapper}>
-                <Image src={src} alt={alt} className={classes.image} fill sizes="(min-width: 768px) 33vw, 100vw" />
+                <Image
+                  src={src}
+                  alt={alt}
+                  className={classes.image}
+                  fill
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                />
               </div>
             )}
             {caption ? <figcaption className={classes.caption}>{caption}</figcaption> : null}

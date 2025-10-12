@@ -18,7 +18,8 @@ export const CategoriesSettings: GlobalConfig = {
       relationTo: 'media',
       label: 'Bottom image for Categories page',
       admin: {
-        description: 'This image appears under the categories list on the Categories section of the home page.',
+        description:
+          'This image appears under the categories list on the Categories section of the home page.',
       },
     },
   ],
