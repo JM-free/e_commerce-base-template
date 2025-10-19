@@ -18,21 +18,41 @@ module.exports = async () => {
   }
 
   try {
-    const redirectsRes = await fetch(
+    const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/redirects?limit=1000&depth=1`,
+      { headers: { Accept: 'application/json' } },
     )
 
-    const redirectsData = await redirectsRes.json()
-    const { docs } = redirectsData
+    // If the API isn't available or doesn't return JSON, fall back gracefully
+    const contentType = res.headers.get('content-type') || ''
+    if (!res.ok || !contentType.includes('application/json')) {
+      if (process.env.NODE_ENV === 'production') {
+        console.error(
+          `Error configuring redirects: status=${res.status} content-type=${contentType}`,
+        )
+      }
+      return [internetExplorerRedirect]
+    }
 
-    let dynamicRedirects = []
+    let docs = []
+    try {
+      const data = await res.json()
+      docs = data?.docs || []
+    } catch (e) {
+      if (process.env.NODE_ENV === 'production') {
+        console.error(`Error parsing redirects JSON: ${e}`)
+      }
+      return [internetExplorerRedirect]
+    }
 
-    if (docs) {
+    const dynamicRedirects = []
+
+    if (Array.isArray(docs)) {
       docs.forEach(doc => {
         const { from, to: { type, url, reference } = {} } = doc
 
-        let source = from
-          .replace(process.env.NEXT_PUBLIC_SERVER_URL, '')
+        let source = String(from || '/')
+          .replace(process.env.NEXT_PUBLIC_SERVER_URL || '', '')
           .split('?')[0]
           .toLowerCase()
 
@@ -41,11 +61,12 @@ module.exports = async () => {
         let destination = '/'
 
         if (type === 'custom' && url) {
-          destination = url.replace(process.env.NEXT_PUBLIC_SERVER_URL, '')
+          destination = String(url).replace(process.env.NEXT_PUBLIC_SERVER_URL || '', '')
         }
 
         if (
           type === 'reference' &&
+          reference &&
           typeof reference.value === 'object' &&
           reference?.value?._status === 'published'
         ) {
@@ -61,16 +82,12 @@ module.exports = async () => {
         }
 
         if (source.startsWith('/') && destination && source !== destination) {
-          return dynamicRedirects.push(redirect)
+          dynamicRedirects.push(redirect)
         }
-
-        return
       })
     }
 
-    const redirects = [internetExplorerRedirect, ...dynamicRedirects]
-
-    return redirects
+    return [internetExplorerRedirect, ...dynamicRedirects]
   } catch (error) {
     if (process.env.NODE_ENV === 'production') {
       console.error(`Error configuring redirects: ${error}`) // eslint-disable-line no-console
