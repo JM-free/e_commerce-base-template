@@ -91,8 +91,8 @@ export default buildConfig({
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
-  cors: ['*'],
-  csrf: ['*'],
+  cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL, process.env.IP_ADDRESS],
+  csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL, process.env.IP_ADDRESS],
   endpoints: [
     {
       path: '/create-payment-intent',
