@@ -42,7 +42,9 @@ export const CartPage: React.FC<{
               {typeof productsPage === 'object' && productsPage?.slug && (
                 <Fragment>
                   {' '}
-                  <Link href={`/${productsPage.slug}`}>Has click aquí para volver a los materiales 🗂️</Link>
+                  <Link href={`/${productsPage.slug}`}>
+                    Has click aquí para volver a los materiales 🗂️
+                  </Link>
                 </Fragment>
               )}
               {!user && (
