@@ -29,9 +29,10 @@
   
   /* Image Styles */
   background-image: url('/assets/images/image-1.svg');
-  background-size: cover; /* Ensures image covers the box without distortion */
+  background-size: contain; /* Ensures image covers the box without distortion */
   background-position: center;
   background-repeat: no-repeat;
+  background-color: var(--color-gray-50);
   
   /* Mobile: Change to a header block */
   @include mid-break {
