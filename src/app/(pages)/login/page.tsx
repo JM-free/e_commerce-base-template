@@ -18,7 +18,7 @@ export default async function Login() {
 
   return (
     <section className={classes.login}>
-      <div className={classes.heroImg}></div>
+      <div className={classes.heroBox}></div>
 
       <div className={classes.formWrapper}>
         <div className={classes.formContainer}>

@@ -1,98 +1,92 @@
 @import '../../_css/common';
 
 .login {
-  display: grid;
-  grid-template-columns: 1fr 45%;
-  height: 100vh;
+  display: flex;
+  width: 100%;
+  min-height: 100vh; /* Ensures full screen height */
+  
+  /* Desktop Layout: Row (Side by Side) */
+  flex-direction: row; 
+  background-color: var(--color-white); /* Or your preferred background */
 
+  /* Mobile Layout: Column (Stacked) */
   @include mid-break {
-    grid-template-columns: 1fr;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-image: url('/assets/images/image-1.svg');
+    flex-direction: column;
+    height: auto; /* Allow scrolling on small screens if content is long */
   }
 
   p {
     color: var(--color-gray-500);
+    margin-bottom: 20px;
   }
+}
+
+/* BOX 1: The Image Side */
+.heroBox {
+  /* Desktop: Take up 50% of the width or flex to fill available space */
+  flex: 1; 
+  position: relative;
+  
+  /* Image Styles */
+  background-image: url('/assets/images/image-1.svg');
+  background-size: cover; /* Ensures image covers the box without distortion */
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* Mobile: Change to a header block */
+  @include mid-break {
+    flex: none; /* Disable flex growing/shrinking */
+    width: 100%;
+    height: 250px; /* Define how tall the image box is on mobile */
+    min-height: 250px;
+  }
+}
+
+/* BOX 2: The Form Side */
+.formWrapper {
+  /* Desktop: Take up the other 50% */
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center the form */
+  align-items: center; /* Horizontally center the form */
+  padding: 40px;
+  background-color: #fff; /* Ensure form background is clean */
+
+  /* Mobile */
+  @include mid-break {
+    flex: none; /* Let content dictate height */
+    width: 100%;
+    padding: 30px 20px;
+    background-color: #fff; 
+    border-radius: 20px 20px 0 0; /* Optional: adds a nice rounded look overlapping the image */
+    margin-top: -20px; /* Optional: Pulls the form up slightly over the image */
+  }
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 450px; /* Stop the form from getting too wide on huge screens */
+  
+  /* No need for blur filters anymore as it is its own solid box */
 }
 
 .formTitle {
   display: flex;
   align-items: center;
-  gap: 16px;
-  width: 100%;
+  gap: 12px;
+  margin-bottom: 8px;
 
   h3 {
     margin: 0;
-
+    font-size: 32px;
+    
     @include mid-break {
-      font-size: 34px;
-      margin-bottom: 8px;
+      font-size: 28px;
     }
-  }
-
-}
-
-.heroImg {
-  height: 100%;
-  width: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-image: url('/assets/images/image-1.svg');
-
-  @include mid-break {
-    background: none;
-    display: flex;
-    justify-content: center;
-  }
-}
-
-.logo {
-  margin: 60px;
-  width: 30%;
-  min-width: 150px;
-  z-index: 10;
-
-  @include mid-break {
-    width: 45%;
-    margin: 10px;
-  }
-}
-
-.formWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-
-  @include mid-break {
-    justify-content: flex-start;
-    padding: 10px;
-  }
-}
-
-.formContainer {
-  max-width: 600px;
-  width: 100%;
-  padding: 50px;
-  border-radius: 10px;
-
-  @include mid-break {
-    backdrop-filter: blur(30px);
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  }
-
-  @include small-break {
-    padding: 30px;
   }
 }
 
 .params {
-  margin-top: var(--base);
+  margin-bottom: var(--base);
 }
