@@ -78,6 +78,19 @@ export default buildConfig({
   },
   editor: slateEditor({}), // editor-config
   // database-adapter-config-start
+  email: {
+    transportOptions: {
+      host: 'smtp.resend.com',
+      auth: {
+        user: 'resend', // This is always 'resend'
+        pass: process.env.RESEND_API_KEY,
+      },
+      port: 465,
+      secure: true,
+    },
+    fromName: 'culicula', // You can change this to your store name
+    fromAddress: 'noreply@notifications.culicula.com', // Must be your verified domain
+  },
   db: mongooseAdapter({
     url: process.env.DATABASE_URI,
   }),

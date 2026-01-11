@@ -28,7 +28,38 @@ const Users: CollectionConfig = {
     beforeChange: [createStripeCustomer],
     afterChange: [loginAfterCreate],
   },
-  auth: true,
+  auth: {
+    forgotPassword: {
+      generateEmailHTML: ({ token }) => {
+        // This URL points to the frontend route already implemented in the template
+        const resetPasswordURL = `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/reset-password?token=${token}`
+
+        return `
+          <!doctype html>
+          <html>
+            <body>
+              <h1>Reiniciar Contraseña</h1>
+              <p>Hola,</p>
+              <p>Has solicitado reiniciar tu contraseña de Culicula, no hay problema a mí me pasa todo el tiempo.</p>
+              <p>Por favor, dale al enlace a continuación para crear una nueva.</p>
+              <p>
+                <a href="${resetPasswordURL}">${resetPasswordURL}</a>
+              </p>
+              <p>Si por lo que sea no has pedido reiniciar tu contraseña, puedes ignorar este mensaje.</p>
+
+              <h1>Reset Password</h1>
+              <p>Hello,</p>
+              <p>You requested a password reset for your account at My Store. Please click the link below to set a new password:</p>
+              <p>
+                <a href="${resetPasswordURL}">${resetPasswordURL}</a>
+              </p>
+              <p>If you did not request this, please ignore this email.</p>
+            </body>
+          </html>
+        `
+      },
+    },
+  },
   endpoints: [
     {
       path: '/:teamID/customer',
