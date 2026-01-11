@@ -149,7 +149,7 @@ export const CheckoutPage: React.FC<{
       )}
       {clientSecret && (
         <Fragment>
-          <h3 className={classes.payment}>Payment Details</h3>
+          <h3 className={classes.payment}>Detalles de Pago</h3>
           {error && <p>{`Error: ${error}`}</p>}
           <Elements
             stripe={stripe}
