@@ -3,6 +3,10 @@ import type { AfterChangeHook } from 'payload/dist/collections/config/types'
 import type { Order, Product, User } from '../../../payload-types'
 import { confirmationEmailTemplate } from './confirmationEmailTemplate'
 
+const formatPrice = (amount: number): string => {
+  return (amount / 100).toFixed(2)
+}
+
 export const sendConfirmationEmail: AfterChangeHook<Order> = async ({ doc, req, operation }) => {
   if (operation === 'create') {
     const { payload } = req
@@ -32,7 +36,7 @@ export const sendConfirmationEmail: AfterChangeHook<Order> = async ({ doc, req, 
             }
 
             const title = product?.title || 'Product'
-            return `<li>${title} (x${item.quantity}) - $${item.price}</li>`
+            return `<li>${title} (x${item.quantity}) - $${formatPrice(item.price || 0)}</li>`
           }),
         )
 
@@ -43,7 +47,7 @@ export const sendConfirmationEmail: AfterChangeHook<Order> = async ({ doc, req, 
           html: confirmationEmailTemplate({
             name: user.name || 'Cliente',
             orderID: doc.id,
-            total: doc.total,
+            total: formatPrice(doc.total),
             itemsHtml: itemsHtml.join(''),
           }),
         })

@@ -6,7 +6,7 @@ export const confirmationEmailTemplate = ({
 }: {
   name: string
   orderID: string
-  total: number
+  total: string
   itemsHtml: string
 }): string => {
   return `
@@ -30,6 +30,7 @@ export const confirmationEmailTemplate = ({
     <div class="order-info">
       <p>Hola ${name},</p>
       <p>Hemos recibido tu pedido <strong>#${orderID}</strong> y ya lo estamos procesando.</p>
+      <p><strong>Total:</strong> $${total}</p>
     </div>
     <div class="items">
       <h3>Detalles del pedido:</h3>
