@@ -18,7 +18,7 @@ export default async function Purchases() {
 
   return (
     <div>
-      <h5>Pedidos</h5>
+      <h5>Recursos Comprados</h5>
       <div>
         {user?.purchases?.length || 0 > 0 ? (
           <ul className={classes.purchases}>

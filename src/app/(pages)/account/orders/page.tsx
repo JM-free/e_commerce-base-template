@@ -43,7 +43,7 @@ export default async function Orders() {
 
   return (
     <div>
-      <h5>Mis Pedidos</h5>
+      <h5>Mis Facturas</h5>
       {(!orders || !Array.isArray(orders) || orders?.length === 0) && (
         <p className={classes.noOrders}>No tienes ningún pedido</p>
       )}
@@ -85,8 +85,8 @@ export default async function Orders() {
 }
 
 export const metadata: Metadata = {
-  title: 'Pedidos',
-  description: 'Tus perdidos.',
+  title: 'Facturas',
+  description: 'Tus facturas.',
   openGraph: mergeOpenGraph({
     title: 'Orders',
     url: '/orders',

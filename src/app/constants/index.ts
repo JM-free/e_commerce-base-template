@@ -33,7 +33,7 @@ export const profileNavItems = [
     icon: '/assets/icons/purchases.svg',
   },
   {
-    title: 'Mis Pedidos',
+    title: 'Mis Facturas',
     url: '/account/orders',
     icon: '/assets/icons/orders.svg',
   },
