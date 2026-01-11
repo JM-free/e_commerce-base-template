@@ -41,7 +41,8 @@ export default async function handler(req: PayloadRequest, res: NextApiResponse)
 
   // Fetch digital file from the new collection
   const digitalFileId =
-    typeof product.digitalFile === 'object' && true &&
+    typeof product.digitalFile === 'object' &&
+    product.digitalFile !== null &&
     'id' in product.digitalFile
       ? (product.digitalFile as { id: string }).id
       : (product.digitalFile as string)
