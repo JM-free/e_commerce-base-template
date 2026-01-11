@@ -164,7 +164,7 @@ const Products: CollectionConfig = {
           'Upload a digital file for this product. Only visible to users after purchase.',
       },
       access: {
-        read: admins, // Only admins can see/edit in admin UI
+        read: checkUserPurchases,
         create: admins,
         update: admins,
       },

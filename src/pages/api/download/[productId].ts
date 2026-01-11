@@ -21,28 +21,36 @@ export default async function handler(req: PayloadRequest, res: NextApiResponse)
   type Purchase = { id: string } | string
 
   // Check if user has purchased this product
+  const isAdmin = user.roles?.includes('admin')
   const hasPurchased = user.purchases?.some(
     (purchase: Purchase) => (typeof purchase === 'object' ? purchase.id : purchase) === productId,
   )
-  if (!hasPurchased) {
+  if (!hasPurchased && !isAdmin) {
     return res.status(403).json({ error: 'You have not purchased this product' })
   }
 
   // Fetch product and its digitalFile
-  const product = await payload.findByID({ collection: 'products', id: productId })
+  const product = await payload.findByID({
+    collection: 'products',
+    id: productId,
+    overrideAccess: true,
+  })
   if (!product?.digitalFile) {
     return res.status(404).json({ error: 'No digital file for this product' })
   }
 
   // Fetch digital file from the new collection
   const digitalFileId =
-    typeof product.digitalFile === 'object' &&
-    product.digitalFile !== null &&
+    typeof product.digitalFile === 'object' && true &&
     'id' in product.digitalFile
       ? (product.digitalFile as { id: string }).id
       : (product.digitalFile as string)
 
-  const media = await payload.findByID({ collection: 'digitalfiles', id: digitalFileId })
+  const media = await payload.findByID({
+    collection: 'digitalfiles',
+    id: digitalFileId,
+    overrideAccess: true,
+  })
   if (!media?.filename) {
     return res.status(404).json({ error: 'Digital file not found' })
   }
