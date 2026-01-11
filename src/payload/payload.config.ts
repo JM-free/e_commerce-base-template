@@ -88,7 +88,7 @@ export default buildConfig({
       port: 465,
       secure: true,
     },
-    fromName: 'culicula', // You can change this to your store name
+    fromName: 'Culiculá', // You can change this to your store name
     fromAddress: 'noreply@notifications.culicula.com', // Must be your verified domain
   },
   db: mongooseAdapter({
