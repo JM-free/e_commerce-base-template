@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 import { Product } from '../../../payload/payload-types'
 import { useCart } from '../../_providers/Cart'
@@ -20,39 +19,55 @@ export const AddToCartButton: React.FC<{
   const { cart, addItemToCart, isProductInCart, hasInitializedCart } = useCart()
 
   const [isInCart, setIsInCart] = useState<boolean>()
-  const router = useRouter()
 
   useEffect(() => {
     setIsInCart(isProductInCart(product))
   }, [isProductInCart, product, cart])
 
+  if (isInCart) {
+    return (
+      <div className={classes.buttonWrapper}>
+        <Button
+          href="/cart"
+          label="✓ Ver en carrito"
+          el="link"
+          appearance={appearance}
+          className={[
+            className,
+            classes.addToCartButton,
+            appearance === 'default' && classes.green,
+            !hasInitializedCart && classes.hidden,
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        />
+        <Button
+          href="/products"
+          label="Seguir comprando"
+          el="link"
+          appearance="secondary"
+          className={[className, classes.addToCartButton, !hasInitializedCart && classes.hidden]
+            .filter(Boolean)
+            .join(' ')}
+        />
+      </div>
+    )
+  }
+
   return (
     <Button
-      href={isInCart ? '/cart' : undefined}
-      type={!isInCart ? 'button' : undefined}
-      label={isInCart ? `✓ Ver en carrito` : `Agregar al carrito`}
-      el={isInCart ? 'link' : undefined}
+      type="button"
+      label="Agregar al carrito"
       appearance={appearance}
-      className={[
-        className,
-        classes.addToCartButton,
-        appearance === 'default' && isInCart && classes.green,
-        !hasInitializedCart && classes.hidden,
-      ]
+      className={[className, classes.addToCartButton, !hasInitializedCart && classes.hidden]
         .filter(Boolean)
         .join(' ')}
-      onClick={
-        !isInCart
-          ? () => {
-              addItemToCart({
-                product,
-                quantity,
-              })
-
-              router.push('/cart')
-            }
-          : undefined
-      }
+      onClick={() => {
+        addItemToCart({
+          product,
+          quantity,
+        })
+      }}
     />
   )
 }
