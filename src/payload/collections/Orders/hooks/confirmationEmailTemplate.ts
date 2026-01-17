@@ -41,7 +41,6 @@ export const confirmationEmailTemplate = ({
     <p>Puedes ver el estado de tu pedido y descargar tus productos digitales en tu cuenta:</p>
     <a href="https://culicula.com/account/purchases" class="button">Ver mis compras</a>
     <div class="footer">
-      <p>Si tienes alguna pregunta, responde a este correo.</p>
       <p>&copy; ${new Date().getFullYear()} Culiculá</p>
     </div>
   </div>

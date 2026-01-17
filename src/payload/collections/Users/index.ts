@@ -35,29 +35,49 @@ const Users: CollectionConfig = {
         const resetPasswordURL = `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/reset-password?token=${token}`
 
         return `
-          <!doctype html>
-          <html>
-            <body>
-              <h1>Reiniciar Contraseña</h1>
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; }
+            .container { padding: 20px; max-width: 600px; margin: 20px auto; border: 1px solid #eee; border-radius: 5px; }
+            .header { font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #000; border-bottom: 2px solid #000; padding-bottom: 10px; }
+            .section { margin-bottom: 30px; }
+            .footer { margin-top: 30px; font-size: 14px; color: #666; border-top: 1px solid #eee; padding-top: 10px; }
+            .button { display: inline-block; padding: 12px 24px; background-color: #000; color: #fff !important; text-decoration: none; border-radius: 5px; margin: 15px 0; font-weight: bold; }
+            .link-alt { font-size: 12px; color: #888; word-break: break-all; }
+            hr { border: 0; border-top: 1px solid #eee; margin: 20px 0; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="section">
+              <div class="header">Reiniciar contraseña</div>
               <p>Hola,</p>
-              <p>Has solicitado reiniciar tu contraseña de Culiculá. No hay problema ¡a mí me pasa todo el tiempo!</p>
-              <p>Por favor, pincha este enlace para crear una nueva:</p>
-              <p>
-                <a href="${resetPasswordURL}">${resetPasswordURL}</a>
-              </p>
-              <p>Si no has pedido reiniciar tu contraseña, puedes ignorar este mensaje.</p>
+              <p>Has solicitado reiniciar tu contraseña de <strong>Culiculá</strong>. No hay problema, ¡a mí me pasa todo el tiempo!</p>
+              <p>Haz clic en el botón de abajo para crear una nueva:</p>
+              <a href="${resetPasswordURL}" class="button">Cambiar mi contraseña</a>
+              <p>Si no has pedido reiniciar tu contraseña, puedes ignorar este mensaje con total seguridad.</p>
+            </div>
 
-              <h1>Reset Password</h1>
+            <hr>
+
+            <div class="section">
+              <div class="header">Reset Password</div>
               <p>Hi,</p>
-              <p>You requested a password reset for your Culiculá account. No worries — it happens to the best of us.</p>
-              <p>Please click the link below to create a new password:</p>
-              <p>
-                <a href="${resetPasswordURL}">${resetPasswordURL}</a>
-              </p>
+              <p>You requested a password reset for your <strong>Culiculá</strong> account. No worries — it happens to the best of us.</p>
+              <p>Please click the button below to create a new password:</p>
+              <a href="${resetPasswordURL}" class="button">Reset my password</a>
               <p>If you didn’t request a password reset, you can safely ignore this message.</p>
-              <p>Culiculá</p>
-            </body>
-          </html>
+            </div>
+
+            <div class="footer">
+              <p class="link-alt">${resetPasswordURL}</p>
+              <p>&copy; ${new Date().getFullYear()} Culiculá</p>
+            </div>
+          </div>
+        </body>
+        </html>
         `
       },
     },
