@@ -40,20 +40,22 @@ const Users: CollectionConfig = {
             <body>
               <h1>Reiniciar Contraseña</h1>
               <p>Hola,</p>
-              <p>Has solicitado reiniciar tu contraseña de Culicula, no hay problema a mí me pasa todo el tiempo.</p>
-              <p>Por favor, dale al enlace a continuación para crear una nueva.</p>
+              <p>Has solicitado reiniciar tu contraseña de Culiculá. No hay problema ¡a mí me pasa todo el tiempo!</p>
+              <p>Por favor, pincha este enlace para crear una nueva:</p>
               <p>
                 <a href="${resetPasswordURL}">${resetPasswordURL}</a>
               </p>
-              <p>Si por lo que sea no has pedido reiniciar tu contraseña, puedes ignorar este mensaje.</p>
+              <p>Si no has pedido reiniciar tu contraseña, puedes ignorar este mensaje.</p>
 
               <h1>Reset Password</h1>
-              <p>Hello,</p>
-              <p>You requested a password reset for your account at My Store. Please click the link below to set a new password:</p>
+              <p>Hi,</p>
+              <p>You requested a password reset for your Culiculá account. No worries — it happens to the best of us.</p>
+              <p>Please click the link below to create a new password:</p>
               <p>
                 <a href="${resetPasswordURL}">${resetPasswordURL}</a>
               </p>
-              <p>If you did not request this, please ignore this email.</p>
+              <p>If you didn’t request a password reset, you can safely ignore this message.</p>
+              <p>Culiculá</p>
             </body>
           </html>
         `
