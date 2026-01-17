@@ -82,7 +82,7 @@ export const CheckoutPage: React.FC<{
         <div>
           {'Tu '}
           <Link href="/cart">cart</Link>
-          {' está vacío.'}
+          {' está vacío'}
           {typeof productsPage === 'object' && productsPage?.slug && (
             <Fragment>
               {' '}
@@ -94,10 +94,10 @@ export const CheckoutPage: React.FC<{
       {!cartIsEmpty && (
         <div className={classes.items}>
           <div className={classes.header}>
-            <p>Products</p>
+            <p>Productos</p>
             <div className={classes.headerItemDetails}>
               <p></p>
-              <p className={classes.quantity}>Quantity</p>
+              <p className={classes.quantity}>Cantidad</p>
             </div>
             <p className={classes.subtotal}>Subtotal</p>
           </div>
@@ -130,7 +130,7 @@ export const CheckoutPage: React.FC<{
               return null
             })}
             <div className={classes.orderTotal}>
-              <p>Order Total</p>
+              <p>Precio Total</p>
               <p>{cartTotal.formatted}</p>
             </div>
           </ul>

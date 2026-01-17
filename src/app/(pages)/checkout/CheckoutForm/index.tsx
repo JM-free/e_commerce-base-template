@@ -65,7 +65,7 @@ export const CheckoutForm: React.FC<{}> = () => {
               }),
             })
 
-            if (!orderReq.ok) throw new Error(orderReq.statusText || 'Something went wrong.')
+            if (!orderReq.ok) throw new Error(orderReq.statusText || 'Algo ha fallado.')
 
             const {
               error: errorFromRes,
@@ -87,8 +87,8 @@ export const CheckoutForm: React.FC<{}> = () => {
           }
         }
       } catch (err) {
-        const msg = err instanceof Error ? err.message : 'Something went wrong.'
-        setError(`Error while submitting payment: ${msg}`)
+        const msg = err instanceof Error ? err.message : 'Algo ha fallado.'
+        setError(`Error registrando transacción: ${msg}`)
         setIsLoading(false)
       }
     },
