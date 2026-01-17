@@ -31,7 +31,7 @@ export const OrderConfirmationPage: React.FC<{}> = () => {
           <div className={classes.actions}>
             <Button href="/account" label="Ver mi perfil" appearance="primary" />
             <Button
-              href={`${process.env.NEXT_PUBLIC_SERVER_URL}/orders`}
+              href={`${process.env.NEXT_PUBLIC_SERVER_URL}/purchases`}
               label="Ver todos mis pedidos"
               appearance="secondary"
             />
@@ -39,21 +39,13 @@ export const OrderConfirmationPage: React.FC<{}> = () => {
         </Fragment>
       ) : (
         <Fragment>
-          <h1>Gracias por tu pedido!</h1>
+          <h1>¡Gracias por tu pedido!</h1>
+          <p>{`Tu pedido ha sido confirmado. Tu número de pedido es ${orderID}.`}</p>
           <p>
-            {`Tu pedido ha sido confirmado. Reciviras un correo electrónico de confirmación en breve. Tu número de pedido es ${orderID}.`}
+            {`Recibirás un correo electrónico de confirmación en breve (️revisa tu carpeta de Spam 🗑️).`}
           </p>
           <div className={classes.actions}>
-            <Button
-              href={`/account/orders/${orderID}`}
-              label="Ver detalles del pedido"
-              appearance="primary"
-            />
-            <Button
-              href={`${process.env.NEXT_PUBLIC_SERVER_URL}/account/orders`}
-              label="Ver todos mis pedidos"
-              appearance="secondary"
-            />
+            <Button href={`/account/purchases`} label="Descargar pedido" appearance="primary" />
           </div>
         </Fragment>
       )}

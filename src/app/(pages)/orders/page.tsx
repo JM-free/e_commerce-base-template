@@ -17,7 +17,7 @@ import classes from './index.module.scss'
 export default async function Orders() {
   const { token } = await getMeUser({
     nullUserRedirect: `/login?error=${encodeURIComponent(
-      'You must be logged in to view your orders.',
+      'Necesitas iniciar sesión para ver tus pedidos.',
     )}&redirect=${encodeURIComponent('/orders')}`,
   })
 
@@ -73,7 +73,7 @@ export default async function Orders() {
                 </div>
                 <Button
                   appearance="secondary"
-                  label="View Order"
+                  label="Ver pedido"
                   className={classes.button}
                   el="button"
                 />
@@ -84,7 +84,7 @@ export default async function Orders() {
         </ul>
       )}
       <HR />
-      <Button href="/account" appearance="primary" label="Go to account" />
+      <Button href="/account" appearance="primary" label="Ir a mi perfil" />
     </Gutter>
   )
 }
