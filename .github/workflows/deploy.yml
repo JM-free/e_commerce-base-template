@@ -1,0 +1,40 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script_stop: true
+          script: |
+            cd /home/${{ secrets.DEPLOY_USER }}/culicula
+
+            # Pull latest code
+            git pull origin main
+
+            # Install dependencies
+            yarn install --frozen-lockfile
+
+            # Build payload and server
+            yarn build:payload
+            yarn build:server
+            yarn copyfiles
+
+            # Build Next.js (needs DB access at build time)
+            PAYLOAD_CONFIG_PATH=dist/payload/payload.config.js NEXT_BUILD=true node dist/server.js
+
+            # Restart application
+            pm2 restart payload-cms
+
+            # Verify the app is responding
+            sleep 10
+            curl -sf http://localhost:3000 > /dev/null || exit 1

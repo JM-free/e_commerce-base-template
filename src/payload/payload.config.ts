@@ -123,12 +123,9 @@ export default buildConfig({
       handler: productsProxy,
     },
     // The seed endpoint is used to populate the database with some example data
-    // You should delete this endpoint before deploying your site to production
-    {
-      path: '/seed',
-      method: 'get',
-      handler: seed,
-    },
+    ...(process.env.NODE_ENV !== 'production'
+      ? [{ path: '/seed' as const, method: 'get' as const, handler: seed }]
+      : []),
   ],
   plugins: [
     // formBuilder({}),

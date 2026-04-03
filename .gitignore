@@ -3,9 +3,14 @@ dist
 node_modules
 .DS_Store
 .env
+.env.production
 .next
 .vercel
 
 /media/
 /public/
 /private_digital_files/
+/mongo-backups/
+
+package-lock.json
+cross-env
